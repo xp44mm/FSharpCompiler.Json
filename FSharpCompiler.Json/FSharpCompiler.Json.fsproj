@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>FSharpCompiler.Json is a easy to use and configurable JSON framework for F#.</Description>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <Company>34696643@qq.com</Company>
+    <Authors>xp44m</Authors>
+    <Copyright>xp44mm</Copyright>
+    <PackageProjectUrl>https://github.com/xp44mm/FSharpCompiler.Json</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xp44mm/FSharpCompiler.Json</RepositoryUrl>
+    <PackageReleaseNotes>Migration from FSharp.JsonCompiler</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="JsonToken.fs" />
+    <Compile Include="ParseInteger.fs" />
+    <Compile Include="JsonTokenizer.fs" />
+    <None Include="json.yacc" />
+    <Compile Include="JsonParsingTable.fs" />
+    <Compile Include="Json.fs" />
+    <Compile Include="JsonTranslation.fs" />
+    <Compile Include="JsonDriver.fs" />
+    <Compile Include="JsonRender.fs" />
+    <Compile Include="FSharpModules.fs" />
+    <Compile Include="ObjReader.fs" />
+    <Compile Include="ObjWriter.fs" />
+    <Compile Include="DateTimeOffsetConverter.fs" />
+    <Compile Include="TimeSpanConverter.fs" />
+    <Compile Include="GuidConverter.fs" />
+    <Compile Include="EnumConverter.fs" />
+    <Compile Include="DBNullConverter.fs" />
+    <Compile Include="NullableConverter.fs" />
+    <Compile Include="OptionConverter.fs" />
+    <Compile Include="ArrayConverter.fs" />
+    <Compile Include="TupleConverter.fs" />
+    <Compile Include="RecordConverter.fs" />
+    <Compile Include="ListConverter.fs" />
+    <Compile Include="SetConverter.fs" />
+    <Compile Include="MapConverter.fs" />
+    <Compile Include="UnionConverter.fs" />
+    <Compile Include="JsonModule.fs" />
+    <Compile Include="ObjectConverter.fs" />
+    <Compile Include="DateTimeConverter.fs" />
+  </ItemGroup>
+
+  <ItemGroup />
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Literals" Version="2.0.6" />
+    <PackageReference Include="FSharpCompiler.Parsing" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="5.0.1" />
+  </ItemGroup>
+
+</Project>
