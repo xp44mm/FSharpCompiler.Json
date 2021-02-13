@@ -100,7 +100,7 @@ module ObjReader =
         elif ty = typeof<obj> && value.GetType() <> typeof<obj> then
             loopRead (value.GetType()) value
         else
-            Json.String (Render.stringifyNullableType ty value)
+            Json.String (Render.stringify value)
 
     /// read from obj to json
     let rec readObj (readers:#seq<ObjReader>) (ty:Type) (value:obj) =

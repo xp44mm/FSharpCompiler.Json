@@ -20,34 +20,9 @@ You can also use the graphical library package manager ("Manage NuGet Packages f
 
 ## Get Started
 
-序列化
+see also:
 
-```
-open FSharpCompiler.Json
-Render.stringify ([1], [true])
-```
-
-result:
-
-```
-[1], [true]
-```
-
-When instance is about `Nullable<'t>`, `None` directly or indirectly, you should provide type info for stringify method:
-
-```
-let obj = box (Nullable 20)
-Render.stringifyNullableType (typeof<Nullable<int>>) obj
-```
-
-解序列化
-
-配置
-
-读者
-
-写者
-
+- [Serializing and Deserializing JSON.md](./Serializing and Deserializing JSON.md)
 
 
 
