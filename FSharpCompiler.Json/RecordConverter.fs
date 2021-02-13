@@ -23,15 +23,23 @@ let RecordWriter = {
         member this.filter(ty:Type, json:Json) = FSharpType.IsRecord ty
         member this.write(loopWrite:Type -> Json -> obj, ty:Type, json:Json) =
             match json with
-            | Json.Fields fields ->
-                let recordFields = FSharpType.GetRecordFields(ty)
+            | Json.Fields jFields ->
+                let recordFields = 
+                    FSharpType.GetRecordFields(ty)
+
+                let mp = recordFields |> Array.mapi (fun i pi -> pi.Name,i) |> Map.ofArray
+
                 let values =
-                    recordFields
-                    |> Array.map(fun pi ->
-                        let t = pi.PropertyType
-                        let jValue = fields |> Seq.find(fun(k,v)->k=pi.Name) |> snd
-                        loopWrite t jValue
-                    )
+                    jFields
+                    |> Set.toArray
+                    |> Array.map(fun(key,jvalue)->mp.[key],jvalue)
+                    |> Array.sort //将值对齐反射
+                    |> Array.zip recordFields
+                    |> Array.mapi(fun i (pi,(j,jValue)) -> 
+                        if i = j then
+                            loopWrite pi.PropertyType jValue
+                        else failwith "record fields is not matched")
+
                 FSharpValue.MakeRecord(ty,values)
             | _ -> failwith "RecordWriter.write()"
 }

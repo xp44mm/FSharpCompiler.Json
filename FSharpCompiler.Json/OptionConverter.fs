@@ -20,8 +20,7 @@ let OptionReader = {
 
 let OptionWriter = {
     new ObjWriter with
-        member this.filter(ty:Type, json:Json) =
-            ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Option<_>>
+        member this.filter(ty:Type, json:Json) = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Option<_>>
         member this.write(loopWrite:Type -> Json -> obj, ty:Type, json:Json) =
             match json with
             | Json.Null -> box None

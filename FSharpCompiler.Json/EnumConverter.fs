@@ -8,36 +8,6 @@ open System.Collections.Concurrent
 open System.Reflection
 open FSharp.Literals
 
-///[<Flags>] Enum 的值
-let flagsReader =
-    let dic = ConcurrentDictionary<Type, obj -> string[]>(HashIdentity.Structural)
-    let valueFactory (ty:Type) =
-        let enumUnderlyingType = ty.GetEnumUnderlyingType()
-        let zeroPairs,positivePairs =
-            Enum.GetNames(ty)
-            |> Array.map(fun name ->
-                let value =     
-                    ty.GetField(
-                        name, 
-                        BindingFlags.NonPublic ||| BindingFlags.Public ||| BindingFlags.Static
-                    ).GetValue(null)
-                value, name
-            )
-            |> Array.partition(fun(v,nm) -> EnumUtils.isGenericZero enumUnderlyingType v)
-
-        let zeroNames = zeroPairs |> Array.map snd
-
-        let reader (inpEnum:obj) =
-            let flagNames =
-                positivePairs
-                |> Array.filter(fun(flagValue,name)-> EnumUtils.genericMask enumUnderlyingType inpEnum flagValue)
-                |> Array.map snd
-
-            if Array.isEmpty flagNames then zeroNames else flagNames
-        reader
-
-    fun (ty:Type) -> dic.GetOrAdd(ty, Func<_,_> valueFactory)
-
 /// 
 let toUInt64 (ty:Type) =
     if ty = typeof<sbyte> then
@@ -89,21 +59,59 @@ let fromUInt64 (ty:Type) (src:uint64) =
     else
         failwith "Unknown Enum Underlying Type."
 
-let private read (ty:Type) (value:obj) =
-    let enumUnderlyingType = ty.GetEnumUnderlyingType()
-    let names =
-        Enum.GetNames(ty)
+
+let underlyingTypes = ConcurrentDictionary<Type, Type>(HashIdentity.Structural)
+let nameValuePairs  = ConcurrentDictionary<Type, (string*uint64)[]>(HashIdentity.Structural)
+let values = ConcurrentDictionary<Type, Map<string,uint64>>(HashIdentity.Structural)
+
+let getEnumUnderlyingType (enumType:Type) =
+    let valueFactory (enumType:Type) = enumType.GetEnumUnderlyingType()
+    underlyingTypes.GetOrAdd(enumType,valueFactory)
+
+let getNameValuePairs (enumType:Type) =
+    let valueFactory (enumType:Type) = 
+        let underlyingType = getEnumUnderlyingType enumType
+        Enum.GetNames(enumType)
         |> Array.map(fun name ->
             let value =     
-                ty.GetField(
-                    name, 
-                    BindingFlags.NonPublic ||| BindingFlags.Public ||| BindingFlags.Static
-                ).GetValue(null)
-                |> toUInt64 enumUnderlyingType
-            value, name
+                enumType.GetField(
+                    name, BindingFlags.Public ||| BindingFlags.Static
+                    ).GetValue(null)
+                |> toUInt64 underlyingType
+            name, value
         )
-        |> Map.ofArray
+    nameValuePairs.GetOrAdd(enumType,valueFactory)
 
+let getValues(enumType:Type) =
+    let valueFactory (enumType:Type) = 
+        getNameValuePairs enumType
+        |> Map.ofArray
+    values.GetOrAdd(enumType,valueFactory)
+
+///[<Flags>] Enum 的值
+let flagsReader =
+    let dic = ConcurrentDictionary<Type, obj -> string[]>(HashIdentity.Structural)
+    let valueFactory (ty:Type) =
+        let enumUnderlyingType = getEnumUnderlyingType ty
+        let zeroPairs,positivePairs = 
+            getNameValuePairs ty
+            |> Array.partition(fun (name,value) -> value = 0UL)
+
+        let zeroNames = zeroPairs |> Array.map fst
+
+        let reader (inpEnum:obj) =
+            let inpValue = toUInt64 enumUnderlyingType inpEnum
+            let flagNames =
+                positivePairs
+                |> Array.filter(fun(flag,flagValue) -> inpValue &&& flagValue = flagValue)
+                |> Array.map fst
+
+            if Array.isEmpty flagNames then zeroNames else flagNames
+        reader
+
+    fun (ty:Type) -> dic.GetOrAdd(ty, Func<_,_> valueFactory)
+
+let private read (ty:Type) (value:obj) =
     if ty.IsDefined(typeof<FlagsAttribute>,false) then
         let reader = flagsReader ty
         reader value
@@ -111,22 +119,11 @@ let private read (ty:Type) (value:obj) =
         |> Array.toList
         |> Json.Elements
     else
-        Json.String <| names.[toUInt64 enumUnderlyingType value]
+        Json.String <| Enum.GetName(ty,value)
 
 let private write (ty:Type) (json:Json) =
-    let enumUnderlyingType = ty.GetEnumUnderlyingType()
-    let values =
-        Enum.GetNames(ty)
-        |> Array.map(fun name ->
-            let value =     
-                ty.GetField(
-                    name, 
-                    BindingFlags.NonPublic ||| BindingFlags.Public ||| BindingFlags.Static
-                ).GetValue(null)
-                |> toUInt64 enumUnderlyingType
-            name, value
-        )
-        |> Map.ofArray
+    let enumUnderlyingType = getEnumUnderlyingType ty
+    let values = getValues ty
 
     if ty.IsDefined(typeof<FlagsAttribute>,false) then
         match json with

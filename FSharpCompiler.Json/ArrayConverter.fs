@@ -25,9 +25,7 @@ let ArrayWriter = {
                 let arr = (Array.CreateInstance:Type*int->Array)(elementType,elements.Length)
                 elements
                 |> List.map(fun e -> loopWrite elementType e)
-                |> List.iteri(fun i v ->
-                    arr.SetValue(v, i)
-                )
+                |> List.iteri(fun i v -> arr.SetValue(v, i))
                 box arr
             | _ -> failwith "ArrayWriter.write()"
 }

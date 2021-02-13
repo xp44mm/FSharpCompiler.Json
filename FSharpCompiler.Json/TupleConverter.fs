@@ -21,10 +21,10 @@ let TupleWriter = {
         member this.write(loopWrite:Type -> Json -> obj, ty:Type, json:Json) =
             match json with
             | Json.Elements elements ->
-                let tps = FSharpType.GetTupleElements(ty)
                 let elements = Array.ofList elements
+                let elementTypes = FSharpType.GetTupleElements(ty)
                 let values =
-                    Array.zip tps elements
+                    Array.zip elementTypes elements
                     |> Array.map(fun(tp,json)-> loopWrite tp json)
                 FSharpValue.MakeTuple(values,ty)
             | _ -> failwith "TupleWriter.write()"

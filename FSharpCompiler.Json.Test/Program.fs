@@ -1,1 +1,7 @@
-module Program = let [<EntryPoint>] main _ = 0
+module FSharpCompiler.Json.Program
+
+open System
+
+let [<EntryPoint>] main _ = 
+    Console.WriteLine()
+    0

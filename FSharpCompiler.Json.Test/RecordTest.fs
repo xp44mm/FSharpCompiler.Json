@@ -2,10 +2,7 @@
 
 open Xunit
 open Xunit.Abstractions
-open System
-open FSharp.Literals
 open FSharp.xUnit
-open System.Collections.Generic
 
 type Person = { name : string; age : int }
 
