@@ -6,7 +6,7 @@ let rec translateValue = function
 | Interior("value",[Terminal(LEFT_BRACE);fields;Terminal(RIGHT_BRACE)]) ->
     fields
     |> translateFields
-    |> Set.ofList
+    |> Map.ofList
     |> Json.Fields
 | Interior("value",[Terminal(LEFT_BRACK);values;Terminal(RIGHT_BRACK)]) ->
     values

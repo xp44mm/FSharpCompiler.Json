@@ -1,17 +1,15 @@
 ﻿module FSharpCompiler.Json.TupleConverter
 
 open System
-open FSharp.Literals
 open Microsoft.FSharp.Reflection
+open FSharp.Idioms
 
 let TupleReader = {
     new ObjReader with
         member _.filter(ty,value) = FSharpType.IsTuple ty
         member _.read(loopRead, ty, value) = 
-            let reader = Readers.tupleReader ty
-            let elements = reader value
-            let elementTypes = FSharpType.GetTupleElements(ty)
-            Array.zip elementTypes elements
+            let read = TupleType.readTuple ty
+            read value
             |> ObjReader.readTupleFields loopRead
 }
 

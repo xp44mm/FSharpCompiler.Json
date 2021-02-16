@@ -9,8 +9,9 @@
     <Copyright>xp44mm</Copyright>
     <PackageProjectUrl>https://github.com/xp44mm/FSharpCompiler.Json</PackageProjectUrl>
     <RepositoryUrl>https://github.com/xp44mm/FSharpCompiler.Json</RepositoryUrl>
-    <PackageReleaseNotes>Migration from FSharp.JsonCompiler</PackageReleaseNotes>
+    <PackageReleaseNotes>refac</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,16 +24,14 @@
     <Compile Include="JsonTranslation.fs" />
     <Compile Include="JsonDriver.fs" />
     <Compile Include="JsonRender.fs" />
-    <Compile Include="FSharpModules.fs" />
     <Compile Include="ObjReader.fs" />
     <Compile Include="ObjWriter.fs" />
     <Compile Include="DateTimeOffsetConverter.fs" />
     <Compile Include="TimeSpanConverter.fs" />
     <Compile Include="GuidConverter.fs" />
-    <Compile Include="EnumConverter.fs" />
     <Compile Include="DBNullConverter.fs" />
+    <Compile Include="EnumConverter.fs" />
     <Compile Include="NullableConverter.fs" />
-    <Compile Include="OptionConverter.fs" />
     <Compile Include="ArrayConverter.fs" />
     <Compile Include="TupleConverter.fs" />
     <Compile Include="RecordConverter.fs" />
@@ -40,14 +39,13 @@
     <Compile Include="SetConverter.fs" />
     <Compile Include="MapConverter.fs" />
     <Compile Include="UnionConverter.fs" />
+    <Compile Include="OptionConverter.fs" />
     <Compile Include="JsonModule.fs" />
     <Compile Include="ObjectConverter.fs" />
-    <Compile Include="DateTimeConverter.fs" />
   </ItemGroup>
 
-  <ItemGroup />
-
   <ItemGroup>
+    <PackageReference Include="FSharp.Idioms" Version="1.1.6" />
     <PackageReference Include="FSharp.Literals" Version="2.0.7" />
     <PackageReference Include="FSharpCompiler.Parsing" Version="1.0.2" />
   </ItemGroup>

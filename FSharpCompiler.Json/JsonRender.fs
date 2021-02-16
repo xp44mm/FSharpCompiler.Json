@@ -12,7 +12,7 @@ let decimalpoint (s:string) =
 let rec stringify = function
 | Json.Fields mp ->
     mp
-    |> Set.toArray
+    |> Map.toArray
     |> Array.map(fun(k,v)->
         toStringLiteral k + ":" + stringify v
     )

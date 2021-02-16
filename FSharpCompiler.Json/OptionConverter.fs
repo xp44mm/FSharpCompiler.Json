@@ -1,7 +1,7 @@
 ﻿module FSharpCompiler.Json.OptionConverter
 
 open System
-open FSharp.Literals
+open FSharp.Idioms
 open Microsoft.FSharp.Reflection
 
 let OptionReader = {
@@ -11,11 +11,10 @@ let OptionReader = {
             if value = null then
                 Json.Null
             else
-                let reader = DiscriminatedUnion.unionReader ty
+                let reader = UnionType.readUnion ty
                 let _,fields = reader value
                 let ftype,fvalue = fields.[0]
                 loopRead ftype fvalue
-
 }
 
 let OptionWriter = {

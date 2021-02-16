@@ -1,7 +1,6 @@
 ﻿module FSharpCompiler.Json.NullableConverter
 
 open System
-open FSharp.Literals
 
 let NullableReader = {
     new ObjReader with

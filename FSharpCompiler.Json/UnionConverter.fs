@@ -1,15 +1,15 @@
 ﻿module FSharpCompiler.Json.UnionConverter
 
-open System
-open FSharp.Literals
+open FSharp.Idioms
 open Microsoft.FSharp.Reflection
 
 let UnionReader = {
     new ObjReader with
         member _.filter(ty,_) = FSharpType.IsUnion ty
         member _.read(loopRead, ty, value) =
-            let reader = DiscriminatedUnion.unionReader ty
+            let reader = UnionType.readUnion ty
             let name,fields = reader value
+            //简化
             let unionFields =
                 if Array.isEmpty fields then 
                     // union case is paramless
@@ -21,10 +21,8 @@ let UnionReader = {
                     // union case is tuple
                     ObjReader.readTupleFields loopRead fields
 
-            Set.singleton (name,unionFields)
+            Map.ofList [name,unionFields]
             |> Json.Fields
-
-
 }
 
 let UnionWriter = {
@@ -33,14 +31,14 @@ let UnionWriter = {
         member this.write(loopWrite,ty,json) =
             match json with
             | Json.Fields fields ->
-                let jkey, jvalue = Seq.exactlyOne fields
+                let jkey, jvalue =  fields |> Map.toList |> List.exactlyOne
 
                 let unionCaseInfo =
-                    FSharpType.GetUnionCases ty
+                    UnionType.getUnionCases ty
                     |> Array.find(fun c -> c.Name = jkey)
 
                 let uionFieldTypes =
-                    unionCaseInfo.GetFields()
+                    UnionType.getCaseFields unionCaseInfo
                     |> Array.map(fun info -> info.PropertyType)
 
                 match uionFieldTypes with

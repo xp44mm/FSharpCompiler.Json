@@ -29,7 +29,7 @@ type FallbackWriterTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``record test``() =
-        let json = Json.Fields (set ["a",Json.Int32 32;"b",Json.String"xx"])
+        let json = Json.Fields (Map.ofList ["a",Json.Int32 32;"b",Json.String"xx"])
 
         let y = ObjectConverter.write<{|a:int;b:string|}> json
         let yy = {|a=32;b="xx"|}
