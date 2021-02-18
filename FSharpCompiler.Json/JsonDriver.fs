@@ -9,9 +9,9 @@ let parser =
         JsonParsingTable.parsingTable)
 
 let parseTokens tokens =
-    let parsingTree = parser.parse(tokens,JsonTokenizer.getTag)
+    let parsingTree = parser.parse(tokens,fun(tok:JsonToken) ->tok.tag)
     JsonTranslation.translateValue parsingTree
 
 let parse(text:string) =
-    let tokens = JsonTokenizer.tokenize text
+    let tokens = JsonToken.tokenize text
     parseTokens tokens

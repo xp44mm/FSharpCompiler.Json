@@ -17,14 +17,14 @@ module ObjReader =
             |> List.ofArray
             |> List.map(loopRead elemType)
     
-        Json.Elements ls
+        Json.Array ls
 
     /// 读取元组的字段
     let readTupleFields (loopRead:Type -> obj -> Json) fields =
         fields
         |> List.ofArray
         |> List.map(fun(ftype,field)-> loopRead ftype field)
-        |> Json.Elements
+        |> Json.Array
 
     let fallbackRead(loopRead, ty, value) =
         if ty = typeof<bool> then
@@ -33,63 +33,63 @@ module ObjReader =
     
         elif ty = typeof<sbyte> then
             let value = unbox<sbyte> value
-            Json.SByte value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<byte> then
             let value = unbox<byte> value
-            Json.Byte value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<int16> then
             let value = unbox<int16> value
-            Json.Int16 value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<uint16> then
             let value = unbox<uint16> value
-            Json.UInt16 value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<int> then
             let value = unbox<int> value
-            Json.Int32 value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<uint32> then
             let value = unbox<uint32> value
-            Json.UInt32 value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<int64> then
             let value = unbox<int64> value
-            Json.Int64 value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<uint64> then
             let value = unbox<uint64> value
-            Json.UInt64 value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<nativeint> then
             let value = unbox<nativeint> value
-            Json.IntPtr value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<unativeint> then
             let value = unbox<unativeint> value
-            Json.UIntPtr value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<single> then
             let value = unbox<single> value
-            Json.Single value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<float> then
             let value = unbox<float> value
-            Json.Double value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<decimal> then
             let value = unbox<decimal> value
-            Json.Decimal value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<bigint> then
             let value = unbox<bigint> value
-            Json.BigInteger value
+            Json.Number <| value.ToString()
     
         elif ty = typeof<char> then
-            unbox<char> value
-            |> Json.Char
+            String [| unbox<char> value |]
+            |> Json.String
     
         elif ty = typeof<string> then
             unbox<string> value

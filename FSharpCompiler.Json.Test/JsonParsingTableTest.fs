@@ -14,14 +14,14 @@ type JsonParsingTableTest(output:ITestOutputHelper) =
         |> Render.stringify
         |> output.WriteLine
 
-    let solutionPath = DirectoryInfo(__SOURCE_DIRECTORY__).Parent.FullName
-    let yaccPath = Path.Combine(solutionPath, @"FSharpCompiler.Json\json.yacc")
-    let text = File.ReadAllText(yaccPath)
+    let locatePath = Path.Combine(DirectoryInfo(__SOURCE_DIRECTORY__).Parent.FullName,"FSharpCompiler.Json")
+    let filePath = Path.Combine(locatePath, @"urljson.lex")
+    let text = File.ReadAllText(filePath)
     let yaccFile = YaccFile.parse text
 
     [<Fact>]
     member this.``driver data``() =
-        //show driver.mainRules
+        //show yaccFile.mainRules
         let mainRules = [
             ["value";"{";"fields";"}"];
             ["value";"[";"values";"]"];
@@ -91,7 +91,6 @@ type JsonParsingTableTest(output:ITestOutputHelper) =
         //    ] |> String.concat System.Environment.NewLine
         //output.WriteLine(result)
 
-        //生成的产生式等于源代码中的产生式
         Should.equal yacc.rules JsonParsingTable.rules
         Should.equal yacc.parsingTable JsonParsingTable.parsingTable
         Should.equal yacc.kernelSymbols JsonParsingTable.kernelSymbols

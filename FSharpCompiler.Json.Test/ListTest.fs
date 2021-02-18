@@ -13,11 +13,11 @@ type ListTest(output: ITestOutputHelper) =
         let x = [1;2;3]
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.Elements [Json.Int32 1;Json.Int32 2;Json.Int32 3]
+        Should.equal y <| Json.Array [Json.Int32 1;Json.Int32 2;Json.Int32 3]
 
     [<Fact>]
     member this.``list instantiate``() =
-        let x = Json.Elements [Json.Int32 1;Json.Int32 2;Json.Int32 3]
+        let x = Json.Array [Json.Int32 1;Json.Int32 2;Json.Int32 3]
         let y = ObjectConverter.write<List<int>> x
 
         //output.WriteLine(Render.stringify y)

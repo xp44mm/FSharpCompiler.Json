@@ -10,7 +10,7 @@ let private read (ty:Type) (value:obj) =
         reader value
         |> Array.map(Json.String)
         |> Array.toList
-        |> Json.Elements
+        |> Json.Array
     else
         Json.String <| Enum.GetName(ty,value)
 
@@ -20,7 +20,7 @@ let private write (ty:Type) (json:Json) =
 
     if ty.IsDefined(typeof<FlagsAttribute>,false) then
         match json with
-        | Json.Elements flags ->
+        | Json.Array flags ->
             flags
             |> List.map(function
                 | Json.String flag -> values.[flag] 

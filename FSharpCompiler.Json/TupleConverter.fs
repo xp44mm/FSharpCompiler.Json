@@ -18,7 +18,7 @@ let TupleWriter = {
         member this.filter(ty:Type, json:Json) = FSharpType.IsTuple ty
         member this.write(loopWrite:Type -> Json -> obj, ty:Type, json:Json) =
             match json with
-            | Json.Elements elements ->
+            | Json.Array elements ->
                 let elements = Array.ofList elements
                 let elementTypes = FSharpType.GetTupleElements(ty)
                 let values =

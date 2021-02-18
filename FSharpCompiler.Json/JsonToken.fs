@@ -1,7 +1,6 @@
 ﻿namespace FSharpCompiler.Json
 
-open System
-open System.Numerics
+open FSharp.Literals.StringUtils
 
 type JsonToken = 
 | COMMA
@@ -14,19 +13,76 @@ type JsonToken =
 | FALSE
 | TRUE
 | STRING     of string
-| CHAR       of char
-| SBYTE      of SByte
-| BYTE       of Byte
-| INT16      of Int16
-| INT32      of Int32
-| INT64      of Int64
-| INTPTR     of IntPtr
-| UINT16     of UInt16
-| UINT32     of UInt32
-| UINT64     of UInt64
-| UINTPTR    of UIntPtr
-| BIGINTEGER of BigInteger
-| SINGLE     of Single
-| DOUBLE     of Double
-| DECIMAL    of Decimal
+| NUMBER     of string
 
+    member this.tag = 
+        match this with
+        | COMMA       -> ","
+        | COLON       -> ":"
+        | LEFT_BRACK  -> "["
+        | RIGHT_BRACK -> "]"
+        | LEFT_BRACE  -> "{"
+        | RIGHT_BRACE -> "}"
+        | NULL        -> "NULL"
+        | FALSE       -> "FALSE"
+        | TRUE        -> "TRUE"
+        | STRING      _ -> "STRING"
+        | NUMBER      _ -> "NUMBER"
+
+    static member tokenize(inp:string) =
+        let rec loop (inp:string) =
+            seq {
+                match inp with
+                | "" -> ()
+        
+                | Prefix @"\s+" (_,rest) -> 
+                    yield! loop rest
+
+                | PrefixChar '{' rest ->
+                    yield LEFT_BRACE
+                    yield! loop rest
+
+                | PrefixChar '}' rest ->
+                    yield RIGHT_BRACE
+                    yield! loop rest
+
+                | PrefixChar '[' rest ->
+                    yield LEFT_BRACK
+                    yield! loop rest
+
+                | PrefixChar ']' rest ->
+                    yield RIGHT_BRACK
+                    yield! loop rest
+
+                | PrefixChar ':' rest ->
+                    yield COLON
+                    yield! loop rest
+
+                | PrefixChar ',' rest ->
+                    yield COMMA
+                    yield! loop rest
+
+                | Prefix @"null\b" (_,rest) ->
+                    yield NULL
+                    yield! loop rest
+        
+                | Prefix @"true\b" (_,rest) ->
+                    yield TRUE
+                    yield! loop rest
+        
+                | Prefix @"false\b" (_,rest) ->
+                    yield FALSE
+                    yield! loop rest
+        
+                | Prefix """(?:"(\\[/'"bfnrt\\]|\\u[0-9a-fA-F]{4}|[^\\"])*")""" (lexeme,rest) ->
+                    yield  STRING(parseStringLiteral lexeme)
+                    yield! loop rest
+
+                | Prefix @"[-+]?\d+(\.\d+)?([eE][-+]?\d+)?" (lexeme,rest) ->
+                    yield NUMBER lexeme
+                    yield! loop rest
+
+                | never -> failwith never
+            }
+        
+        loop inp

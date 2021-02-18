@@ -17,7 +17,7 @@ let ArrayWriter = {
         member this.filter(ty:Type, json:Json) = ty.IsArray && ty.GetArrayRank() = 1
         member this.write(loopWrite:Type -> Json -> obj, ty:Type, json:Json) =
             match json with
-            | Json.Elements elements ->
+            | Json.Array elements ->
                 let elementType = ArrayType.getElementType ty
                 let arr = (Array.CreateInstance:Type*int->Array)(elementType, elements.Length)
 

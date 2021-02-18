@@ -6,7 +6,6 @@ open System
 open FSharp.Literals
 open FSharp.xUnit
 
-
 type TokenizeTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``char test``() =

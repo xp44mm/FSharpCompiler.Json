@@ -38,11 +38,11 @@ type EnumTest(output: ITestOutputHelper) =
         let x = BindingFlags.Public ||| BindingFlags.NonPublic
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify res)
-        Should.equal y <| Json.Elements [ Json.String "Public"; Json.String "NonPublic" ]
+        Should.equal y <| Json.Array [ Json.String "Public"; Json.String "NonPublic" ]
 
     [<Fact>]
     member this.``flags instantiate``() =
-        let x = Json.Elements [ Json.String "Public"; Json.String "NonPublic" ]
+        let x = Json.Array [ Json.String "Public"; Json.String "NonPublic" ]
         let y = ObjectConverter.write<BindingFlags> x
 
         //output.WriteLine(Render.stringify y)
@@ -53,11 +53,11 @@ type EnumTest(output: ITestOutputHelper) =
         let x = RegexOptions.None
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify res)
-        Should.equal y <| Json.Elements [ Json.String "None"]
+        Should.equal y <| Json.Array [ Json.String "None"]
 
     [<Fact>]
     member this.``zero flags instantiate``() =
-        let x = Json.Elements [ Json.String "None"]
+        let x = Json.Array [ Json.String "None"]
         let y = ObjectConverter.write<RegexOptions> x
 
         //output.WriteLine(Render.stringify y)

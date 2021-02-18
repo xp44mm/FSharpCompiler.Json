@@ -21,24 +21,74 @@ module ObjWriter =
         | Json.Null  -> null
         | Json.False -> box false    |> assertType<bool> ty
         | Json.True  -> box true     |> assertType<bool> ty
-        | Json.Char       x -> box x |> assertType<char> ty
-        | Json.String     x -> box x |> assertType<string> ty
-        | Json.SByte      x -> box x |> assertType<sbyte> ty
-        | Json.Byte       x -> box x |> assertType<byte> ty
-        | Json.Int16      x -> box x |> assertType<int16> ty
-        | Json.Int32      x -> box x |> assertType<int32> ty
-        | Json.Int64      x -> box x |> assertType<int64> ty
-        | Json.IntPtr     x -> box x |> assertType<IntPtr> ty
-        | Json.UInt16     x -> box x |> assertType<uint16> ty
-        | Json.UInt32     x -> box x |> assertType<uint32> ty
-        | Json.UInt64     x -> box x |> assertType<uint64> ty
-        | Json.UIntPtr    x -> box x |> assertType<UIntPtr> ty
-        | Json.BigInteger x -> box x |> assertType<BigInteger> ty
-        | Json.Single     x -> box x |> assertType<Single> ty
-        | Json.Double     x -> box x |> assertType<float> ty
-        | Json.Decimal    x -> box x |> assertType<decimal> ty
-        | Json.Fields _ -> failwith "not allowed type"
-        | Json.Elements _ -> failwith "not allowed type"
+        | Json.String x ->
+            if ty = typeof<string> then
+                box x
+            elif ty = typeof<char> then
+                box x.[0]
+            else
+                failwithf "type should be `%s`"  ty.Name
+        | Json.Number x -> 
+            if ty = typeof<sbyte> then
+                Convert.ToSByte x
+                |> box
+    
+            elif ty = typeof<byte> then
+                Convert.ToByte x
+                |> box
+    
+            elif ty = typeof<int16> then
+                Convert.ToInt16 x
+                |> box
+    
+            elif ty = typeof<uint16> then
+                Convert.ToUInt16 x
+                |> box
+  
+            elif ty = typeof<int> then
+                Convert.ToInt32 x
+                |> box
+
+            elif ty = typeof<uint32> then
+                Convert.ToUInt32 x
+                |> box
+
+            elif ty = typeof<int64> then
+                Convert.ToInt64 x
+                |> box
+    
+            elif ty = typeof<uint64> then
+                Convert.ToUInt64 x
+                |> box
+    
+            elif ty = typeof<single> then
+                Convert.ToSingle x
+                |> box
+    
+            elif ty = typeof<float> then
+                Convert.ToDouble x
+                |> box
+    
+            elif ty = typeof<decimal> then
+                Convert.ToDecimal x
+                |> box
+    
+            elif ty = typeof<bigint> then
+                BigInteger.Parse x
+                |> box
+            elif ty = typeof<nativeint> then
+                IntPtr(Convert.ToInt64 x)
+                |> box
+    
+            elif ty = typeof<unativeint> then
+                UIntPtr(Convert.ToUInt64 x)
+                |> box
+    
+            else
+                failwithf "type should be `%s`"  ty.Name
+
+        | Json.Object _ -> failwith "not allowed type"
+        | Json.Array _ -> failwith "not allowed type"
 
     /// write to obj from json.
     let rec writeObj (writers:#seq<ObjWriter>) (ty:Type) (json:Json) =
