@@ -2,6 +2,7 @@
 
 open Xunit
 open Xunit.Abstractions
+open System
 open System.IO
 
 open FSharpCompiler.Yacc
@@ -15,84 +16,75 @@ type JsonParsingTableTest(output:ITestOutputHelper) =
         |> output.WriteLine
 
     let locatePath = Path.Combine(DirectoryInfo(__SOURCE_DIRECTORY__).Parent.FullName,"FSharpCompiler.Json")
-    let filePath = Path.Combine(locatePath, @"urljson.lex")
+    let filePath = Path.Combine(locatePath, @"json.yacc")
     let text = File.ReadAllText(filePath)
     let yaccFile = YaccFile.parse text
 
     [<Fact>]
-    member this.``driver data``() =
+    member this.``1-input data``() =
         //show yaccFile.mainRules
-        let mainRules = [
-            ["value";"{";"fields";"}"];
-            ["value";"[";"values";"]"];
-            ["value";"STRING"];
-            ["value";"NULL"];
-            ["value";"FALSE"];
-            ["value";"TRUE"];
-            ["value";"CHAR"];
-            ["value";"SBYTE"];
-            ["value";"BYTE"];
-            ["value";"INT16"];
-            ["value";"INT32"];
-            ["value";"INT64"];
-            ["value";"INTPTR"];
-            ["value";"UINT16"];
-            ["value";"UINT32"];
-            ["value";"UINT64"];
-            ["value";"UINTPTR"];
-            ["value";"BIGINTEGER"];
-            ["value";"SINGLE"];
-            ["value";"DOUBLE"];
-            ["value";"DECIMAL"];
-            ["fields";"fields";",";"field"];
-            ["fields";"field"];
-            ["fields"];
+        let y = [
+            ["value";"object"];["value";"array"];["value";"NULL"];["value";"FALSE"];["value";"TRUE"];["value";"STRING"];["value";"NUMBER"];
+            ["object";"{";"fields";"}"];
+            ["array";"[";"values";"]"];
+            ["fields";"fields";",";"field"];["fields";"field"];["fields"];
             ["field";"STRING";":";"value"];
-            ["values";"values";",";"value"];
-            ["values";"value"];
-            ["values"]]
+            ["values";"values";",";"value"];["values";"value"];["values"]]
         
-        Should.equal yaccFile.mainRules mainRules
+        Should.equal y yaccFile.mainRules
 
         Assert.True(yaccFile.precedences.IsEmpty)
 
     [<Fact>]
-    member this.``解决冲突``() =
-        // 查看生成的表是否有冲突
+    member this.``2-产生式冲突``() =
         let tbl = AmbiguousTable.create yaccFile.mainRules
-
-        //解析表没有产生式冲突
         let pconflicts = ConflictFactory.productionConflict tbl.ambiguousTable
-
+        //show pconflicts
         Assert.True(pconflicts.IsEmpty)
 
-        // 符号多用警告
+    [<Fact>]
+    member this.``3-符号多用警告``() =
+        let tbl = AmbiguousTable.create yaccFile.mainRules
         let warning = ConflictFactory.overloadsWarning tbl
-
+        //show warning
         Assert.True(warning.IsEmpty)
 
-        //优先级冲突
+    [<Fact>]
+    member this.``4-优先级冲突``() =
+        let tbl = AmbiguousTable.create yaccFile.mainRules
         let srconflicts = ConflictFactory.shiftReduceConflict tbl
-        
+        show srconflicts
         Assert.True(srconflicts.IsEmpty)
 
-
-    [<Fact>]
-    member this.``测试解析表数据是否为最新``() =
-        //所有冲突都解决了，可以生成解析表
+    //[<Fact>]
+    member this.``5-generate parsing table``() =
         let yacc = ParseTable.create(yaccFile.mainRules, yaccFile.precedences)
 
-        ////解析表数据
-        //let result =
-        //    [
-        //        "let rules = " + Render.stringify yacc.rules
-        //        "let kernelSymbols = " + Render.stringify yacc.kernelSymbols
-        //        "let parsingTable = " + Render.stringify yacc.parsingTable
-        //    ] |> String.concat System.Environment.NewLine
-        //output.WriteLine(result)
+        //解析表数据
+        let result =
+            [
+                "module FSharpCompiler.Json.JsonParsingTable"
+                "let rules = " + Render.stringify yacc.rules
+                "let kernelSymbols = " + Render.stringify yacc.kernelSymbols
+                "let parsingTable = " + Render.stringify yacc.parsingTable
+            ] |> String.concat Environment.NewLine
+        let outputDir = Path.Combine(locatePath, @"JsonParsingTable.fs")
+        File.WriteAllText(outputDir,result)
+        output.WriteLine("output yacc:"+outputDir)
 
-        Should.equal yacc.rules JsonParsingTable.rules
-        Should.equal yacc.parsingTable JsonParsingTable.parsingTable
+    [<Fact>]
+    member this.``5-verify parsing table``() =
+        let yacc = ParseTable.create(yaccFile.mainRules, yaccFile.precedences)
+
+        Should.equal yacc.rules         JsonParsingTable.rules
         Should.equal yacc.kernelSymbols JsonParsingTable.kernelSymbols
+        Should.equal yacc.parsingTable  JsonParsingTable.parsingTable
+
+
+
+
+
+
+
 
 

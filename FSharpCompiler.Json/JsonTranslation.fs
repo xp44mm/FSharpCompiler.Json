@@ -21,20 +21,20 @@ let rec translateValue = function
     Json.String s
 | Interior("value",[Terminal(NUMBER s)]) ->
     Json.Number s
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateObject = function
 | Interior("object",[Terminal(LEFT_BRACE);fields;Terminal(RIGHT_BRACE)]) ->
     translateFields fields
     |> Map.ofList
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateArray = function
 | Interior("array",[Terminal(LEFT_BRACK);values;Terminal(RIGHT_BRACK)]) ->
     values
     |> translateValues
     |> List.rev
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateFields = function
 | Interior("fields",[Interior("fields",_) as ls; Terminal(COMMA); field]) ->
@@ -43,12 +43,12 @@ and translateFields = function
     [translateField field]
 | Interior("fields",[]) ->
     []
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateField = function
 | Interior("field",[Terminal(STRING s);Terminal(COLON);value]) ->
     (s, translateValue value)
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateValues = function
 | Interior("values",[Interior("values",_) as ls;Terminal(COMMA); value]) ->
@@ -57,4 +57,4 @@ and translateValues = function
     [translateValue value]
 | Interior("values",[]) ->
     []
-| never -> failwithf "%A" <| never.get_firstLevel()
+| never -> failwithf "%A" <| never.firstLevel()

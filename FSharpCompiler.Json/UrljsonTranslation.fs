@@ -24,7 +24,7 @@ let rec translateValue = function
     Json.String s
 | Interior("value",[Terminal(UrljsonToken.NUMBER s)]) ->
     Json.String s
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateObject = function
 | Interior("object",[Terminal(UrljsonToken.EMPTY_OBJECT)]) ->
@@ -32,7 +32,7 @@ and translateObject = function
 | Interior("object",[Terminal(UrljsonToken.LEFT_PAREN);fields;Terminal(UrljsonToken.RIGHT_PAREN)]) ->
     translateFields fields
     |> Map.ofList
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateFields = function
 | Interior("fields",[Interior("fields",_) as ls; Terminal(UrljsonToken.EXCLAM); field]) ->
@@ -41,26 +41,26 @@ and translateFields = function
     [translateField field]
 | Interior("fields",[]) ->
     []
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateField = function
 | Interior("field",[name; Terminal(UrljsonToken.STAR); value]) ->
     (translateName name, translateValue value)
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateName = function
 | Interior("name",[Terminal(UrljsonToken.ID s)]) ->
     s 
 | Interior("name",[Terminal(UrljsonToken.KEY s)]) ->
     s // detidles
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateArray = function
 | Interior("array",[Terminal(UrljsonToken.LEFT_PAREN);values;Terminal(UrljsonToken.RIGHT_PAREN)]) ->
     values
     |> translateValues
     |> List.rev
-| never -> failwithf "%A"  <| never.get_firstLevel()
+| never -> failwithf "%A"  <| never.firstLevel()
 
 and translateValues = function
 | Interior("values",[Interior("values",_) as ls; Terminal(UrljsonToken.EXCLAM); value]) ->
@@ -69,4 +69,4 @@ and translateValues = function
     [translateValue value]
 | Interior("values",[]) ->
     []
-| never -> failwithf "%A" <| never.get_firstLevel()
+| never -> failwithf "%A" <| never.firstLevel()

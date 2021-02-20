@@ -1,6 +1,7 @@
 ﻿namespace FSharpCompiler.Json
 
-open FSharp.Literals.StringUtils
+open FSharp.Idioms
+open FSharp.Idioms.StringOps
 
 type JsonToken = 
 | COMMA
@@ -75,7 +76,7 @@ type JsonToken =
                     yield! loop rest
         
                 | Prefix """(?:"(\\[/'"bfnrt\\]|\\u[0-9a-fA-F]{4}|[^\\"])*")""" (lexeme,rest) ->
-                    yield  STRING(parseStringLiteral lexeme)
+                    yield  STRING(StringLiteral.parseStringLiteral lexeme)
                     yield! loop rest
 
                 | Prefix @"[-+]?\d+(\.\d+)?([eE][-+]?\d+)?" (lexeme,rest) ->

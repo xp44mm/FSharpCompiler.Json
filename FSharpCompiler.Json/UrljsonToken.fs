@@ -1,6 +1,6 @@
 ﻿namespace FSharpCompiler.Json.Urls
 
-open FSharp.Literals.StringUtils
+open FSharp.Idioms.StringOps
 
 type UrljsonToken = 
 | EXCLAM // COMMA

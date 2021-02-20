@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
 
-    <IsPackable>false</IsPackable>
-    <GenerateProgramFile>false</GenerateProgramFile>
-  </PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<GenerateProgramFile>false</GenerateProgramFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="DemoTest.fs" />
-    <Compile Include="PrimitiveDriverTest.fs" />
-    <Compile Include="TokenizeTest.fs" />
-    <Compile Include="JsonParsingTableTest.fs" />
+	<ItemGroup>
+		<Compile Include="JsonTokenTest.fs" />
+		<Compile Include="JsonParsingTableTest.fs" />
+		<Compile Include="JsonParseTreeTest.fs" />
+		<!--<Compile Include="DemoTest.fs" />
     <Compile Include="FallbackReaderTest.fs" />
     <Compile Include="FallbackWriterTest.fs" />
     <Compile Include="EnumTest.fs" />
@@ -31,33 +31,34 @@
     <Compile Include="UrlTokenTest.fs" />
     <Compile Include="UrljsonDfaTest.fs" />
     <Compile Include="UrljsonAnalyzerTest.fs" />
-    <Compile Include="UrljsonParsingTableTest.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
+    -->
+		<Compile Include="UrljsonParsingTableTest.fs" />
+		<Compile Include="Program.fs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FSharp.Literals" Version="2.0.8" />
-    <PackageReference Include="FSharp.xUnit" Version="1.0.0" />
-    <PackageReference Include="FSharpCompiler.Lex" Version="1.0.3" />
-    <PackageReference Include="FSharpCompiler.Yacc" Version="1.0.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FSharp.Literals" Version="2.0.9" />
+		<PackageReference Include="FSharp.xUnit" Version="1.0.0" />
+		<PackageReference Include="FSharpCompiler.Lex" Version="1.0.4" />
+		<PackageReference Include="FSharpCompiler.Yacc" Version="1.0.3" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector" Version="3.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FSharpCompiler.Json\FSharpCompiler.Json.fsproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\FSharpCompiler.Json\FSharpCompiler.Json.fsproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="5.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="FSharp.Core" Version="5.0.1" />
+	</ItemGroup>
 
 </Project>

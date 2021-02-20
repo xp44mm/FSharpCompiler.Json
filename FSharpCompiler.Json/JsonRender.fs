@@ -1,20 +1,14 @@
 ﻿module FSharpCompiler.Json.JsonRender
 
-open FSharp.Literals.StringUtils
-open System.Globalization
+open FSharp.Idioms
 
-let decimalpoint (s:string) =
-    if s.Contains "." || s.Contains "E" || s.Contains "e" then
-        s
-    else
-        s + ".0"
 
 let rec stringify = function
 | Json.Object mp ->
     mp
     |> Map.toArray
     |> Array.map(fun(k,v)->
-        toStringLiteral k + ":" + stringify v
+       StringLiteral.toStringLiteral k + ":" + stringify v
     )
     |> String.concat ","
     |> sprintf "{%s}"
@@ -26,7 +20,7 @@ let rec stringify = function
 | Json.Null -> "null"
 | Json.False -> "false"
 | Json.True -> "true"
-| Json.String x -> toStringLiteral x
+| Json.String x -> StringLiteral.toStringLiteral x
 | Json.Number c -> c
 
 
