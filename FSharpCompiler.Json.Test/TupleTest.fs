@@ -14,11 +14,11 @@ type TupleTest(output: ITestOutputHelper) =
         let x = (1,"x")
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.Array [Json.Int32 1;Json.String "x"]
+        Should.equal y <| Json.Array [Json.Number 1.0;Json.String "x"]
 
     [<Fact>]
     member this.``array instantiate``() =
-        let x = Json.Array [Json.Int32 1;Json.String "x"]
+        let x = Json.Array [Json.Number 1.0;Json.String "x"]
         let y = 
             ObjectConverter.write<int*string> x
 

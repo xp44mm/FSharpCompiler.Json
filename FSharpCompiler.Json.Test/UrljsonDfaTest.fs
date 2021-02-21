@@ -27,9 +27,9 @@ type UrljsonDfaTest(output:ITestOutputHelper) =
             [
                 "module FSharpCompiler.Json.Urls.UrljsonDFA"
                 "let dtran = "
-                "    " + Render.stringify dfa.dtran
+                "    " + Render.stringify dfa.transitions
                 "let finalLexemes:(Set<uint32>*Set<uint32>) list = "
-                "    " + Render.stringify dfa.dfinalLexemes
+                "    " + Render.stringify dfa.finalLexemes
             ] |> String.concat Environment.NewLine
         let outputDir = Path.Combine(locatePath, @"UrljsonDFA.fs")
         File.WriteAllText(outputDir,result)
@@ -37,5 +37,5 @@ type UrljsonDfaTest(output:ITestOutputHelper) =
 
     [<Fact>]
     member this.``verify DFA``() =
-        Should.equal dfa.dtran UrljsonDFA.dtran
-        Should.equal dfa.dfinalLexemes UrljsonDFA.finalLexemes
+        Should.equal dfa.transitions  UrljsonDFA.dtran
+        Should.equal dfa.finalLexemes UrljsonDFA.finalLexemes

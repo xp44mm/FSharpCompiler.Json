@@ -5,6 +5,7 @@ open Xunit.Abstractions
 open System
 open FSharp.Literals
 open FSharp.xUnit
+open FSharpCompiler.Json.Urls
 
 type UrljsonAnalyzerTest(output: ITestOutputHelper) =
     [<Fact>]

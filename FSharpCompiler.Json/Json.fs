@@ -1,5 +1,6 @@
 ﻿namespace FSharpCompiler.Json
 
+
 [<RequireQualifiedAccess>]
 type Json =
 | Object of Map<string,Json>
@@ -8,7 +9,7 @@ type Json =
 | False
 | True
 | String of string
-| Number of string
+| Number of float 
 
     member t.Item with get(idx:int) =
         match t with

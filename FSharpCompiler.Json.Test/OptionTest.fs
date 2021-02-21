@@ -27,11 +27,11 @@ type OptionTest(output: ITestOutputHelper) =
         let x = Some 1
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.Int32 1
+        Should.equal y <| Json.Number 1.0
 
     [<Fact>]
     member this.``some union case instantiate``() =
-        let x = Json.Int32 1
+        let x = Json.Number 1.0
         let y = ObjectConverter.write<int option> x
 
         //output.WriteLine(Render.stringify y)

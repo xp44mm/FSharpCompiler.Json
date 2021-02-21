@@ -13,11 +13,11 @@ type RecordTest(output: ITestOutputHelper) =
         let x = { name = "cuisl"; age = 18 }
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.Object (Map.ofList["name",Json.String "cuisl"; "age", Json.Int32 18])
+        Should.equal y <| Json.Object (Map.ofList["name",Json.String "cuisl"; "age", Json.Number 18.0])
 
     [<Fact>]
     member this.``record instantiate``() =
-        let x = Json.Object (Map.ofList["name",Json.String "cuisl"; "age", Json.Int32 18])
+        let x = Json.Object (Map.ofList["name",Json.String "cuisl"; "age", Json.Number 18.0])
         let y = ObjectConverter.write<Person> x
 
         //output.WriteLine(Render.stringify y)

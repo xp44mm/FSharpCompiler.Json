@@ -11,27 +11,29 @@
 		<Compile Include="JsonTokenTest.fs" />
 		<Compile Include="JsonParsingTableTest.fs" />
 		<Compile Include="JsonParseTreeTest.fs" />
-		<!--<Compile Include="DemoTest.fs" />
-    <Compile Include="FallbackReaderTest.fs" />
-    <Compile Include="FallbackWriterTest.fs" />
-    <Compile Include="EnumTest.fs" />
-    <Compile Include="GuidTest.fs" />
-    <Compile Include="DateTimeOffsetConverterTest.fs" />
-    <Compile Include="TimeSpanConverterTest.fs" />
-    <Compile Include="DBNullConverterTest.fs" />
-    <Compile Include="NullableTest.fs" />
-    <Compile Include="OptionTest.fs" />
-    <Compile Include="RecordTest.fs" />
-    <Compile Include="ArrayTest.fs" />
-    <Compile Include="TupleTest.fs" />
-    <Compile Include="ListTest.fs" />
-    <Compile Include="SetTest.fs" />
-    <Compile Include="MapTest.fs" />
-    <Compile Include="UnionTest.fs" />
-    <Compile Include="UrlTokenTest.fs" />
-    <Compile Include="UrljsonDfaTest.fs" />
-    <Compile Include="UrljsonAnalyzerTest.fs" />
-    -->
+		<Compile Include="JsonTranslationTest.fs" />
+		<Compile Include="JsonDriverTest.fs" />
+		<Compile Include="JsonRenderTest.fs" />
+		<Compile Include="DemoTest.fs" />
+		<Compile Include="FallbackReaderTest.fs" />
+		<Compile Include="FallbackWriterTest.fs" />
+		<Compile Include="EnumTest.fs" />
+		<Compile Include="GuidTest.fs" />
+		<Compile Include="DateTimeOffsetConverterTest.fs" />
+		<Compile Include="TimeSpanConverterTest.fs" />
+		<Compile Include="DBNullConverterTest.fs" />
+		<Compile Include="NullableTest.fs" />
+		<Compile Include="OptionTest.fs" />
+		<Compile Include="RecordTest.fs" />
+		<Compile Include="ArrayTest.fs" />
+		<Compile Include="TupleTest.fs" />
+		<Compile Include="ListTest.fs" />
+		<Compile Include="SetTest.fs" />
+		<Compile Include="MapTest.fs" />
+		<Compile Include="UnionTest.fs" />
+		<Compile Include="UrlTokenTest.fs" />
+		<Compile Include="UrljsonDfaTest.fs" />
+		<Compile Include="UrljsonAnalyzerTest.fs" />
 		<Compile Include="UrljsonParsingTableTest.fs" />
 		<Compile Include="Program.fs" />
 	</ItemGroup>
@@ -39,7 +41,7 @@
 	<ItemGroup>
 		<PackageReference Include="FSharp.Literals" Version="2.0.9" />
 		<PackageReference Include="FSharp.xUnit" Version="1.0.0" />
-		<PackageReference Include="FSharpCompiler.Lex" Version="1.0.4" />
+		<PackageReference Include="FSharpCompiler.Lex" Version="1.0.5" />
 		<PackageReference Include="FSharpCompiler.Yacc" Version="1.0.3" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
 		<PackageReference Include="xunit" Version="2.4.1" />

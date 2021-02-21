@@ -29,6 +29,7 @@ module ObjWriter =
             else
                 failwithf "type should be `%s`"  ty.Name
         | Json.Number x -> 
+            // https://docs.microsoft.com/en-us/dotnet/standard/base-types/conversion-tables
             if ty = typeof<sbyte> then
                 Convert.ToSByte x
                 |> box
@@ -74,7 +75,7 @@ module ObjWriter =
                 |> box
     
             elif ty = typeof<bigint> then
-                BigInteger.Parse x
+                BigInteger x
                 |> box
             elif ty = typeof<nativeint> then
                 IntPtr(Convert.ToInt64 x)

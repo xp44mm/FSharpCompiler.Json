@@ -27,7 +27,7 @@ type JsonParseTreeTest(output:ITestOutputHelper) =
         let y = parse x
         //show y
         Should.equal y 
-        <| Interior("value",[Interior("object",[Terminal LEFT_BRACE;Interior("fields",[]);Terminal RIGHT_BRACE])])
+        <| Interior("value",[Interior("object",[Terminal LEFT_BRACE;Terminal RIGHT_BRACE])])
 
     [<Fact>]
     member this.``empty array``() =
@@ -35,7 +35,7 @@ type JsonParseTreeTest(output:ITestOutputHelper) =
         let y = parse x
         //show y
         Should.equal y 
-        <| Interior("value",[Interior("array",[Terminal LEFT_BRACK;Interior("values",[]);Terminal RIGHT_BRACK])])
+        <| Interior("value",[Interior("array",[Terminal LEFT_BRACK;Terminal RIGHT_BRACK])])
 
     [<Fact>]
     member this.``null``() =
@@ -75,25 +75,44 @@ type JsonParseTreeTest(output:ITestOutputHelper) =
         let y = parse x
         //show y
         Should.equal y 
-        <| Interior("value",[Terminal(NUMBER "0")])
+        <| Interior("value",[Terminal(NUMBER 0.0)])
 
     [<Fact>]
     member this.``single field object``() =
         let x = """{"a":0}"""
         let y = parse x
-        show y
+        //show y
+        //show y.[0].[1].[0] //field
         Should.equal y 
         <| Interior("value",[Interior("object",[Terminal LEFT_BRACE;
-            Interior("fields",[Interior("field",[Terminal(STRING "a");Terminal COLON;Interior("value",[Terminal(NUMBER "0")])])]);
+            Interior("fields",[Interior("field",[Terminal(STRING "a");Terminal COLON;Interior("value",[Terminal(NUMBER 0.0)])])]);
             Terminal RIGHT_BRACE])])
 
     [<Fact>]
     member this.``many field object``() =
         let x = """{"a":0,"b":null}"""
         let y = parse x
-        show y
+        //show y
         Should.equal y 
         <| Interior("value",[Interior("object",[Terminal LEFT_BRACE;
-            Interior("fields",[Interior("fields",[Interior("field",[Terminal(STRING "a");Terminal COLON;Interior("value",[Terminal(NUMBER "0")])])]);Terminal COMMA;Interior("field",[Terminal(STRING "b");Terminal COLON;Interior("value",[Terminal NULL])])]);
+            Interior("fields",[Interior("fields",[Interior("field",[Terminal(STRING "a");Terminal COLON;Interior("value",[Terminal(NUMBER 0.0)])])]);Terminal COMMA;Interior("field",[Terminal(STRING "b");Terminal COLON;Interior("value",[Terminal NULL])])]);
             Terminal RIGHT_BRACE])])
+
+    [<Fact>]
+    member this.``singleton array``() =
+        let x = "[0]"
+        let y = parse x
+        show y
+        Should.equal y 
+        <| Interior("value",[Interior("array",[Terminal LEFT_BRACK;Interior("values",[Interior("value",[Terminal(NUMBER 0.0)])]);Terminal RIGHT_BRACK])])
+
+    [<Fact>]
+    member this.``many elements array``() =
+        let x = "[0,1]"
+        let y = parse x
+        show y
+        Should.equal y 
+        <| Interior("value",[Interior("array",[Terminal LEFT_BRACK;
+            Interior("values",[Interior("values",[Interior("value",[Terminal(NUMBER 0.0)])]);Terminal COMMA;Interior("value",[Terminal(NUMBER 1.0)])]);
+            Terminal RIGHT_BRACK])])
 

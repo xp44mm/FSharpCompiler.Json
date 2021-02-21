@@ -14,11 +14,11 @@ type ArrayTest(output: ITestOutputHelper) =
         let x = [|1;2;3|]
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.Array [Json.Int32 1;Json.Int32 2;Json.Int32 3]
+        Should.equal y <| Json.Array [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
 
     [<Fact>]
     member this.``array instantiate``() =
-        let x = Json.Array [Json.Int32 1;Json.Int32 2;Json.Int32 3]
+        let x = Json.Array [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
         let y = ObjectConverter.write<int[]> x
 
         //output.WriteLine(Render.stringify y)

@@ -31,11 +31,11 @@ type NullableTest(output: ITestOutputHelper) =
     member this.``read from nullable to json``() =
         let x = Nullable 3
         let y = ObjectConverter.read x
-        Should.equal y <| Json.Int32 3
+        Should.equal y <| Json.Number 3.0
 
     [<Fact>]
     member this.``write from json to fsharp``() =
-        let x = Json.Int32 3
+        let x = Json.Number 3.0
         let y = ObjectConverter.write<Nullable<int>> x
 
         Should.equal y <| Nullable 3

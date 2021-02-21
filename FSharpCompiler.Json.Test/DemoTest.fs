@@ -61,7 +61,7 @@ type DemoTest(output: ITestOutputHelper) =
         let tree = Json.Object(Map.ofList [
             "ExpiryDate",Json.String "2008-12-28T00:00:00";
             "Name",Json.String "Apple";
-            "Price",Json.Double 3.99;
+            "Price",Json.Number 3.99;
             "Sizes",Json.Array [
                 Json.String "Small";
                 Json.String "Medium";
@@ -75,7 +75,7 @@ type DemoTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``htmlColor test``() =
-        let tree = Json.Object(Map.ofList ["Blue",Json.Int32 0;"Green",Json.Int32 0;"Red",Json.Int32 255])
+        let tree = Json.Object(Map.ofList ["Blue",Json.Number 0.0;"Green",Json.Number 0.0;"Red",Json.Number 255.0])
         let x = JsonRender.stringify tree
         let y = JsonDriver.parse x
         show y
@@ -91,7 +91,7 @@ type DemoTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``dailyRegistrations test``() =
-        let tree = Json.Object(Map.ofList ["2014-06-01T00:00:00",Json.Int32 23;"2014-06-02T00:00:00",Json.Int32 50])
+        let tree = Json.Object(Map.ofList ["2014-06-01T00:00:00",Json.Number 23.0;"2014-06-02T00:00:00",Json.Number 50.0])
         let x = JsonRender.stringify tree
         let y = JsonDriver.parse x
         show y
@@ -99,7 +99,7 @@ type DemoTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``city test``() =
-        let tree = Json.Object(Map.ofList ["Name",Json.String "Oslo";"Population",Json.Int32 650000])
+        let tree = Json.Object(Map.ofList ["Name",Json.String "Oslo";"Population",Json.Number 650000.0])
 
         let x = JsonRender.stringify tree
         let y = JsonDriver.parse x
@@ -128,7 +128,7 @@ type DemoTest(output: ITestOutputHelper) =
     member this.``SerializeAttributes test``() =
         let tree = 
             Json.Array [
-                Json.Object(Map.ofList ["Bedrooms",Json.Int32 2;"BuildDate",Json.String "1890-01-01T00:00:00";"FloorArea",Json.Double 100.0;"StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "1890-01-01T00:00:00"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "new Date(-2524568400000)"])
+                Json.Object(Map.ofList ["Bedrooms",Json.Number 2.0;"BuildDate",Json.String "1890-01-01T00:00:00";"FloorArea",Json.Number 100.0;"StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "1890-01-01T00:00:00"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "new Date(-2524568400000)"])
                 ]
         let x = JsonRender.stringify tree
         let y = JsonDriver.parse x
@@ -137,7 +137,7 @@ type DemoTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``map name test``() =
-        let tree = Json.Object(Map.ofList ["Blue",Json.Int32 0;"Green",Json.Int32 0;"Red",Json.Int32 255])
+        let tree = Json.Object(Map.ofList ["Blue",Json.Number 0.0;"Green",Json.Number 0.0;"Red",Json.Number 255.0])
         let y = tree.["Blue"]
         show y
         //Should.equal y tree
@@ -146,7 +146,7 @@ type DemoTest(output: ITestOutputHelper) =
     member this.``list index test``() =
         let tree = 
             Json.Array [
-                Json.Object(Map.ofList ["Bedrooms",Json.Int32 2;"BuildDate",Json.String "1890-01-01T00:00:00";"FloorArea",Json.Double 100.0;"StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "1890-01-01T00:00:00"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "new Date(-2524568400000)"])
+                Json.Object(Map.ofList ["Bedrooms",Json.Number 2.0;"BuildDate",Json.String "1890-01-01T00:00:00";"FloorArea",Json.Number 100.0;"StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["StreetAddress",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "1890-01-01T00:00:00"]);Json.Object(Map.ofList ["address",Json.String "221B Baker Street";"buildDate",Json.String "new Date(-2524568400000)"])
                 ]
 
         let y = tree.[0]

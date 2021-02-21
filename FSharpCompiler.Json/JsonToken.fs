@@ -2,6 +2,7 @@
 
 open FSharp.Idioms
 open FSharp.Idioms.StringOps
+open System
 
 type JsonToken = 
 | COMMA
@@ -13,8 +14,8 @@ type JsonToken =
 | NULL
 | FALSE
 | TRUE
-| STRING     of string
-| NUMBER     of string
+| STRING of string
+| NUMBER of float
 
     member this.tag = 
         match this with
@@ -80,7 +81,7 @@ type JsonToken =
                     yield! loop rest
 
                 | Prefix @"[-+]?\d+(\.\d+)?([eE][-+]?\d+)?" (lexeme,rest) ->
-                    yield NUMBER lexeme
+                    yield NUMBER(Double.Parse lexeme)
                     yield! loop rest
 
                 | never -> failwith never

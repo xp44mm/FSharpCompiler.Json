@@ -22,14 +22,14 @@ type JsonParsingTableTest(output:ITestOutputHelper) =
 
     [<Fact>]
     member this.``1-input data``() =
-        //show yaccFile.mainRules
+        show yaccFile.mainRules
         let y = [
             ["value";"object"];["value";"array"];["value";"NULL"];["value";"FALSE"];["value";"TRUE"];["value";"STRING"];["value";"NUMBER"];
-            ["object";"{";"fields";"}"];
-            ["array";"[";"values";"]"];
-            ["fields";"fields";",";"field"];["fields";"field"];["fields"];
+            ["object";"{";"}"];["object";"{";"fields";"}"];
+            ["array";"[";"]"];["array";"[";"values";"]"];
+            ["fields";"field"];["fields";"fields";",";"field"];
             ["field";"STRING";":";"value"];
-            ["values";"values";",";"value"];["values";"value"];["values"]]
+            ["values";"value"];["values";"values";",";"value"]]
         
         Should.equal y yaccFile.mainRules
 
@@ -56,7 +56,7 @@ type JsonParsingTableTest(output:ITestOutputHelper) =
         show srconflicts
         Assert.True(srconflicts.IsEmpty)
 
-    //[<Fact>]
+    [<Fact(Skip="generate file")>]
     member this.``5-generate parsing table``() =
         let yacc = ParseTable.create(yaccFile.mainRules, yaccFile.precedences)
 

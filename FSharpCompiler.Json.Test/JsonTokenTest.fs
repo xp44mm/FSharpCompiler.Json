@@ -15,7 +15,7 @@ type JsonTokenTest(output: ITestOutputHelper) =
         let y = JsonToken.tokenize x |> Seq.toList
         //output.WriteLine(Render.stringify y)
         Should.equal y [
-            LEFT_BRACK;LEFT_BRACE;STRING "x";COLON;NUMBER "1";
+            LEFT_BRACK;LEFT_BRACE;STRING "x";COLON;NUMBER 1.0;
             RIGHT_BRACE;COMMA;NULL;COMMA;TRUE;COMMA;FALSE;RIGHT_BRACK]
 
     [<Fact>]
@@ -24,12 +24,12 @@ type JsonTokenTest(output: ITestOutputHelper) =
         let y = JsonToken.tokenize x |> Seq.toList
         //output.WriteLine(Render.stringify y)
         Should.equal y [LEFT_BRACK;
-            NUMBER "1";COMMA;
-            NUMBER "-1";COMMA;
-            NUMBER "+1";COMMA;
-            NUMBER "1.1";COMMA;
-            NUMBER "3e2";COMMA;
-            NUMBER "3.0E3";RIGHT_BRACK]
+            NUMBER 1.0;COMMA;
+            NUMBER -1.0;COMMA;
+            NUMBER 1.0;COMMA;
+            NUMBER 1.1;COMMA;
+            NUMBER 3e2;COMMA;
+            NUMBER 3.0E3;RIGHT_BRACK]
 
     [<Fact>]
     member this.``string element test``() =

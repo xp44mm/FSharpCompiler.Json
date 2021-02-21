@@ -11,7 +11,7 @@ type FallbackWriterTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``Array test``() =
         
-        let json = Json.Array [Json.Int32 32;Json.Int32 20]
+        let json = Json.Array [Json.Number 32.0;Json.Number 20.0]
         let y = ObjectConverter.write<int[]> json
         let yy = [|32;20|]
 
@@ -20,7 +20,7 @@ type FallbackWriterTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``tuple test``() =
-        let json = Json.Array [Json.Int32 32;Json.String "xx"]
+        let json = Json.Array [Json.Number 32.0;Json.String "xx"]
         let y = ObjectConverter.write<int*string> json
         let yy = 32,"xx"
 
@@ -29,7 +29,7 @@ type FallbackWriterTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``record test``() =
-        let json = Json.Object (Map.ofList ["a",Json.Int32 32;"b",Json.String"xx"])
+        let json = Json.Object (Map.ofList ["a",Json.Number 32.0;"b",Json.String"xx"])
 
         let y = ObjectConverter.write<{|a:int;b:string|}> json
         let yy = {|a=32;b="xx"|}

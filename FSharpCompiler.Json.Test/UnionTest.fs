@@ -34,11 +34,11 @@ type UnionTest(output: ITestOutputHelper) =
         let x = OnlyOne 1
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.Object(Map.ofList ["OnlyOne",Json.Int32 1])
+        Should.equal y <| Json.Object(Map.ofList ["OnlyOne",Json.Number 1.0])
 
     [<Fact>]
     member this.``only one union case instantiate``() =
-        let x = Json.Object(Map.ofList ["OnlyOne",Json.Int32 1])
+        let x = Json.Object(Map.ofList ["OnlyOne",Json.Number 1.0])
         let y = 
             ObjectConverter.write<UionExample> x
 
@@ -50,11 +50,11 @@ type UnionTest(output: ITestOutputHelper) =
         let x = Pair(1,"")
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.Object(Map.ofList ["Pair",Json.Array [Json.Int32 1;Json.String ""]])
+        Should.equal y <| Json.Object(Map.ofList ["Pair",Json.Array [Json.Number 1.0;Json.String ""]])
 
     [<Fact>]
     member this.``many params union case instantiate``() =
-        let x = Json.Object(Map.ofList ["Pair",Json.Array [Json.Int32 1;Json.String ""]])
+        let x = Json.Object(Map.ofList ["Pair",Json.Array [Json.Number 1.0;Json.String ""]])
         let y = 
             ObjectConverter.write<UionExample> x
 

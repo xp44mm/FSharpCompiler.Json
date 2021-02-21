@@ -14,11 +14,11 @@ type MapTest(output: ITestOutputHelper) =
         let y = ObjectConverter.read x
         //output.WriteLine(Render.stringify y)
         Should.equal y 
-        <| Json.Array [Json.Array [Json.Int32 1;Json.String "1"];Json.Array [Json.Int32 2;Json.String "2"]]
+        <| Json.Array [Json.Array [Json.Number 1.0;Json.String "1"];Json.Array [Json.Number 2.0;Json.String "2"]]
 
     [<Fact>]
     member this.``instantiate``() =
-        let x = Json.Array [Json.Array [Json.Int32 1;Json.String "1"];Json.Array [Json.Int32 2;Json.String "2"]]
+        let x = Json.Array [Json.Array [Json.Number 1.0;Json.String "1"];Json.Array [Json.Number 2.0;Json.String "2"]]
         let y = ObjectConverter.write<Map<int,string>> x
 
         //output.WriteLine(Render.stringify y)

@@ -7,23 +7,23 @@
 	  | NUMBER
 	  ;
 
-object : "{" fields "}"
+object : "{" "}"
+       | "{" fields "}"
        ;
 
-array  : "[" values "]"
+array  : "[" "]"
+       | "[" values "]"
        ;
 
-fields : fields "," field
-	   | field
-	   | /* empty */
+fields : field
+	   | fields "," field
 	   ;
 
 field : STRING ":" value
 	  ;
 
-values : values "," value
-	   | value
-	   | /* empty */
+values : value
+	   | values "," value
 	   ;
 
 

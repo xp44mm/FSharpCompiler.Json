@@ -57,7 +57,7 @@ type UrljsonParsingTableTest(output:ITestOutputHelper) =
         Assert.True(srconflicts.IsEmpty)
 
 
-    //[<Fact>]
+    [<Fact(Skip="generate file")>]
     member this.``5-generate parsing table``() =
         let yacc = ParseTable.create(yaccFile.mainRules, yaccFile.precedences)
 
