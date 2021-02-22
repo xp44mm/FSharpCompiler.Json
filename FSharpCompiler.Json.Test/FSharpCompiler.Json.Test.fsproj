@@ -16,6 +16,7 @@
 		<Compile Include="JsonRenderTest.fs" />
 		<Compile Include="DemoTest.fs" />
 		<Compile Include="FallbackReaderTest.fs" />
+		<Compile Include="FallbackSerializationTest.fs" />
 		<Compile Include="FallbackWriterTest.fs" />
 		<Compile Include="EnumTest.fs" />
 		<Compile Include="GuidTest.fs" />

@@ -66,15 +66,15 @@ module ObjReader =
     
         elif ty = typeof<nativeint> then
             let value = unbox<nativeint> value
-            Json.Number <| Convert.ToDouble value
+            Json.Number <| Convert.ToDouble(value.ToInt64())
     
         elif ty = typeof<unativeint> then
             let value = unbox<unativeint> value
-            Json.Number <| Convert.ToDouble value
+            Json.Number <| Convert.ToDouble(value.ToUInt64())
     
         elif ty = typeof<single> then
             let value = unbox<single> value
-            Json.Number <| Convert.ToDouble value
+            Json.Number <| Math.Round(Convert.ToDouble value,8)
     
         elif ty = typeof<float> then
             let value = unbox<float> value
@@ -82,10 +82,6 @@ module ObjReader =
     
         elif ty = typeof<decimal> then
             let value = unbox<decimal> value
-            Json.Number <| Convert.ToDouble value
-    
-        elif ty = typeof<bigint> then
-            let value = unbox<bigint> value
             Json.Number <| Convert.ToDouble value
     
         elif ty = typeof<char> then
