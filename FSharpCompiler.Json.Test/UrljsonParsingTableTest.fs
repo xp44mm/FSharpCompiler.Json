@@ -21,18 +21,10 @@ type UrljsonParsingTableTest(output:ITestOutputHelper) =
 
     [<Fact>]
     member this.``1-input data``() =
-        show yaccFile.mainRules
-        let mainRules = [
-            ["value";"object"];["value";"array"];["value";"NULL"];["value";"FALSE"];["value";"TRUE"];["value";"STRING"];["value";"NUMBER"];
-            ["object";"(";"fields";")"];["object";"EMPTY_OBJECT"];
-            ["fields";"fields";"!";"field"];["fields";"field"];
-            ["field";"name";"*";"value"];
-            ["name";"ID"];["name";"KEY"];
-            ["array";"(";"elements";")"];
-            ["elements";"elements";"!";"value"];["elements";"value"];["elements"]]
-
-        Should.equal yaccFile.mainRules mainRules
-
+        //show yaccFile.mainRules
+        let y = [["value";"object"];["value";"array"];["value";"NULL"];["value";"FALSE"];["value";"TRUE"];["value";"STRING"];["value";"NUMBER"];["object";"EMPTY_OBJECT"];["object";"(";"fields";")"];["fields";"field"];["fields";"fields";"*";"field"];["field";"KEY";"!";"value"];["array";"(";")"];["array";"(";"values";")"];["values";"value"];["values";"values";"*";"value"]]
+        
+        Should.equal y yaccFile.mainRules
         Assert.True(yaccFile.precedences.IsEmpty)
 
     [<Fact>]
@@ -57,7 +49,7 @@ type UrljsonParsingTableTest(output:ITestOutputHelper) =
         Assert.True(srconflicts.IsEmpty)
 
 
-    [<Fact(Skip="generate file")>]
+    [<Fact(Skip="done")>]
     member this.``5-generate parsing table``() =
         let yacc = ParseTable.create(yaccFile.mainRules, yaccFile.precedences)
 

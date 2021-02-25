@@ -2,8 +2,6 @@
 
 open Xunit
 open Xunit.Abstractions
-open System
-open FSharp.Literals
 open FSharp.xUnit
 
 type ListTest(output: ITestOutputHelper) =
@@ -16,10 +14,23 @@ type ListTest(output: ITestOutputHelper) =
         Should.equal y <| Json.Array [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
 
     [<Fact>]
-    member this.``list instantiate``() =
+    member this.``write list``() =
         let x = Json.Array [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
         let y = ObjectConverter.write<List<int>> x
+        //output.WriteLine(Render.stringify y)
+        Should.equal y [1;2;3]
+    
+    [<Fact>]
+    member this.``serialize list``() =
+        let x = [1;2;3]
+        let y = ObjectConverter.serialize x
+        //output.WriteLine(Render.stringify y)
+        Should.equal y "[1,2,3]"
 
+    [<Fact>]
+    member this.``deserialize list``() =
+        let x = "[1,2,3]"
+        let y = ObjectConverter.deserialize<List<int>> x
         //output.WriteLine(Render.stringify y)
         Should.equal y [1;2;3]
 

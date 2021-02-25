@@ -59,18 +59,6 @@ type FallbackReaderTest(output: ITestOutputHelper) =
         Assert.Equal(y,Json.Number 0.0)
 
     [<Fact>]
-    member this.``covert from nativeint test``() =
-        let x = 0n
-        let y = ObjectConverter.read x
-        Assert.Equal(y, Json.Number 0.0)
-
-    [<Fact>]
-    member this.``covert from unativeint test``() =
-        let x = 0un
-        let y = ObjectConverter.read x
-        Assert.Equal(y,Json.Number 0.0)
-
-    [<Fact>]
     member this.``covert from single test``() =
         let x = 0.1f
         let y = ObjectConverter.read x 
@@ -82,6 +70,17 @@ type FallbackReaderTest(output: ITestOutputHelper) =
         let y = ObjectConverter.read x
         Assert.Equal(y,Json.Number 0.0)
 
+    [<Fact>]
+    member this.``covert from nativeint test``() =
+        let x = 0n
+        let y = ObjectConverter.read x
+        Assert.Equal(y, Json.Number 0.0)
+
+    [<Fact>]
+    member this.``covert from unativeint test``() =
+        let x = 0un
+        let y = ObjectConverter.read x
+        Assert.Equal(y,Json.Number 0.0)
 
     [<Fact>]
     member this.``covert from char test``() =

@@ -12,13 +12,13 @@ Complex Types
 
 ```F#
 F#   Json
-Array Json.Elements
-Tuple Json.Elements
-List  Json.Elements
-Set   Json.Elements
-Map   Json.Elements
-Record Json.Fields
-DU     Json.Fields
+Array Json.Array
+Tuple Json.Array
+List  Json.Array
+Set   Json.Array
+Map   Json.Array
+Record Json.Object
+DU     Json.Object
 DBNull.Value Json.Null
 None Json.Null
 ```
@@ -31,21 +31,20 @@ null                       Json.Null
 false                      Json.False
 true                       Json.True
 System.String              Json.String
-System.Char                Json.Char
-System.SByte               Json.SByte
-System.Byte                Json.Byte
-System.Int16               Json.Int16
-System.Int32               Json.Int32
-System.Int64               Json.Int64
-System.IntPtr              Json.IntPtr
-System.UInt16              Json.UInt16
-System.UInt32              Json.UInt32
-System.UInt64              Json.UInt64
-System.UIntPtr             Json.UIntPtr
-System.Numerics.BigInteger Json.BigInteger
-System.Single              Json.Single
-System.Double              Json.Double
-System.Decimal             Json.Decimal
+System.Char                Json.String
+System.SByte               Json.Number
+System.Byte                Json.Number
+System.Int16               Json.Number
+System.Int32               Json.Number
+System.Int64               Json.Number
+System.IntPtr              Json.Number
+System.UInt16              Json.Number
+System.UInt32              Json.Number
+System.UInt64              Json.Number
+System.UIntPtr             Json.Number
+System.Single              Json.Number
+System.Double              Json.Number
+System.Decimal             Json.Number
 
 ```
 
@@ -53,7 +52,7 @@ Others
 
 ```F#
 Enum           Json.String
-Flags Enum     Json.Elements [Json.String...]
+Flags Enum     Json.Array [Json.String...]
 Guid           Json.String
 DateTimeOffset Json.String
 TimeSpan       Json.String

@@ -44,4 +44,5 @@ let write<'t> (json:Json) = ObjWriter.writeObj writers typeof<'t> json :?> 't
 let serialize<'t> (value:'t) = value |> read |> Json.stringify
 
 /// convert from string instantiate value
-let deserialize<'t> (text:string) = text |> Json.parse |> write<'t>
+let deserialize<'t> (text:string) = 
+    text |> Json.parse |> write<'t>

@@ -3,10 +3,6 @@
 open Xunit
 open Xunit.Abstractions
 open System
-open System.Reflection
-open System.IO
-open System.Text.RegularExpressions
-open FSharp.Literals
 open FSharp.xUnit
 
 type FallbackSerializationTest(output: ITestOutputHelper) =

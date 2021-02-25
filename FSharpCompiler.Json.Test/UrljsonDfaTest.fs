@@ -21,7 +21,7 @@ type UrljsonDfaTest(output:ITestOutputHelper) =
 
     let dfa = LexFileDriver.parse text
 
-    //[<Fact>]
+    [<Fact(Skip="done")>]
     member this.``generate DFA``() =
         let result =
             [

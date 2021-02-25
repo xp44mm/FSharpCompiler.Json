@@ -25,6 +25,8 @@ module ObjWriter =
             if ty = typeof<string> then
                 box x
             elif ty = typeof<char> then
+                if x = "" then
+                    failwith "empty string can't write to char error."
                 box x.[0]
             else
                 failwithf "type should be `%s`"  ty.Name
@@ -74,9 +76,6 @@ module ObjWriter =
                 Convert.ToDecimal x
                 |> box
     
-            elif ty = typeof<bigint> then
-                BigInteger x
-                |> box
             elif ty = typeof<nativeint> then
                 IntPtr(Convert.ToInt64 x)
                 |> box

@@ -8,52 +8,54 @@ open FSharp.xUnit
 
 
 type NullableTest(output: ITestOutputHelper) =
-    /// 结论：primitive type 装箱后可以强制转化为 nullable类型。
     [<Fact>]
-    member this.``prameterless constructor``() =
-        let nullableType = typeof<Nullable<int>>
-        // 不能使用这个方法，直接返回空，即可。
-        Assert.Throws<System.NullReferenceException>(fun () -> 
-            let o = Activator.CreateInstance(nullableType)
-            // Prove that we created a Person.
-            output.WriteLine("A {0} object has been created", o.GetType().Name)
-        )
+    member this.``serialize nullable``() =
+        let x = Nullable 3
+        let y = ObjectConverter.serialize x
+        Should.equal y "3"
 
     [<Fact>]
-    member this.``non null constructor``() =
-        let nullableType = typeof<Nullable<int>>
-        let o = Activator.CreateInstance(nullableType, [| box 1 |])
-        // Prove that we created a Person.
-        output.WriteLine("A {0} object has been created", o.GetType().Name)
-
+    member this.``serialize nullable null``() =
+        let x = Nullable ()
+        let y = ObjectConverter.serialize x
+        Should.equal y "null"
 
     [<Fact>]
-    member this.``read from nullable to json``() =
+    member this.``deserialize nullable``() =
+        let x = "3" 
+        let y = ObjectConverter.deserialize<Nullable<int>> x
+        Should.equal y <| Nullable 3
+
+    [<Fact>]
+    member this.``deserialize nullable null``() =
+        let x = "null"
+        let y = ObjectConverter.deserialize<Nullable<_>> x
+        Should.equal y <| Nullable ()
+
+    [<Fact>]
+    member this.``read nullable``() =
         let x = Nullable 3
         let y = ObjectConverter.read x
         Should.equal y <| Json.Number 3.0
 
     [<Fact>]
-    member this.``write from json to fsharp``() =
+    member this.``read nullable null``() =
+        let x = Nullable ()
+        let y = ObjectConverter.read x
+        Should.equal y <| Json.Null
+
+
+    [<Fact>]
+    member this.``write nullable``() =
         let x = Json.Number 3.0
         let y = ObjectConverter.write<Nullable<int>> x
 
         Should.equal y <| Nullable 3
 
     [<Fact>]
-    member this.``box nullable``() =        
-        let x = box 3
-        Should.equal x (box (Nullable 3))
+    member this.``write nullable null``() =
+        let x = Json.Null
+        let y = ObjectConverter.write<Nullable<_>> x
 
-    [<Fact>]
-    member this.``unbox nullable``() =        
-        let x = box 3
-        let y = x |> unbox<Nullable<int>>
-        Should.equal y (Nullable 3)
-
-    [<Fact>]
-    member this.``cast nullable``() =
-        let x = box 3
-        let yy = x :?> Nullable<int>
-        Should.equal yy (Nullable 3)
+        Should.equal y <| Nullable ()
 

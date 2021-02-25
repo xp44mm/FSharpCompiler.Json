@@ -1,5 +1,8 @@
-﻿STRING / "*"
-"(" "*" ")"
+﻿STRING / "!"
+NULL   / "!"
+FALSE  / "!"
+TRUE   / "!"
+"(" "!" ")"
 "!"
 "*"
 "("
@@ -9,4 +12,4 @@ FALSE
 TRUE
 STRING
 NUMBER
-ID
+KEY

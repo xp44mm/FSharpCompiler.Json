@@ -7,25 +7,21 @@
 	  | NUMBER
 	  ;
 
-object : "(" fields ")"
-       | EMPTY_OBJECT
+object : EMPTY_OBJECT
+       | "(" fields ")"
        ;
 
-fields : fields "!" field
-	   | field
+fields : field
+	   | fields "*" field
 	   ;
 
-field : name "*" value
+field : KEY "!" value
 	  ;
 
-name : ID
-     | KEY
-	 ;
-
-array : "(" values ")"
+array : "(" ")"
+      | "(" values ")"
       ;
 
-values : values "!" value
-	   | value
-	   | /* empty */
-	     ;
+values : value
+	   | values "*" value
+       ;

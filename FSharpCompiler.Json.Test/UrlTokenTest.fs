@@ -7,19 +7,14 @@ open FSharp.Literals
 open FSharp.xUnit
 open FSharpCompiler.Json.Urls
 
-type UrlTokenTest(output: ITestOutputHelper) =
+type UrlTokenTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.json() =
-        let x = "(inlet*(SO2*0!SO3*1)!eobj*(*)!earr*()!arr*(10!11!12)!dirtyLeakage*~Yes: \"it's great!\"~)"
+        let x = "(inlet!(SO2!0*SO3!1)*eobj!(!)*earr!()*arr!(10*11*12)*dirtyLeakage!~Yes! \"it's great*\"~)"
         let toks = UrljsonToken.tokenize x |> Seq.toList
 
         //output.WriteLine(Render.stringify toks)
-        let res = [
-            LEFT_PAREN;ID "inlet";STAR;LEFT_PAREN;ID "SO2";STAR;NUMBER "0";EXCLAM;ID "SO3";STAR;NUMBER "1";
-            RIGHT_PAREN;EXCLAM;ID "eobj";STAR;LEFT_PAREN;STAR;RIGHT_PAREN;EXCLAM;ID "earr";STAR;LEFT_PAREN;
-            RIGHT_PAREN;EXCLAM;ID "arr";STAR;LEFT_PAREN;NUMBER "10";EXCLAM;NUMBER "11";EXCLAM;NUMBER "12";
-            RIGHT_PAREN;EXCLAM;ID "dirtyLeakage";STAR;STRING "~Yes: \"it's great!\"~";RIGHT_PAREN
-            ]
+        let res = [LEFT_PAREN;KEY "inlet";EXCLAM;LEFT_PAREN;KEY "SO2";EXCLAM;NUMBER 0.0;ASTERISK;KEY "SO3";EXCLAM;NUMBER 1.0;RIGHT_PAREN;ASTERISK;KEY "eobj";EXCLAM;LEFT_PAREN;EXCLAM;RIGHT_PAREN;ASTERISK;KEY "earr";EXCLAM;LEFT_PAREN;RIGHT_PAREN;ASTERISK;KEY "arr";EXCLAM;LEFT_PAREN;NUMBER 10.0;ASTERISK;NUMBER 11.0;ASTERISK;NUMBER 12.0;RIGHT_PAREN;ASTERISK;KEY "dirtyLeakage";EXCLAM;STRING "Yes! \"it's great*\"";RIGHT_PAREN]
         Should.equal toks res
 
     [<Fact>]
@@ -33,59 +28,38 @@ type UrlTokenTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``simple tokens``() =
-        let x = "((null!true!false)!(*)!($*-1.1e2!x'*~~))"
+        let x = "((null*true*false)*(!)*($!-1.1e2*x'!~~))"
         let toks = UrljsonToken.tokenize x |> Seq.toList
 
         //output.WriteLine(Render.stringify toks)
-        let res = [
-            LEFT_PAREN;LEFT_PAREN;NULL;EXCLAM;TRUE;EXCLAM;FALSE;
-            RIGHT_PAREN;EXCLAM;LEFT_PAREN;STAR;RIGHT_PAREN;EXCLAM;LEFT_PAREN;ID "$";STAR;NUMBER "-1.1e2";
-            EXCLAM;ID "x'";STAR;STRING "~~";RIGHT_PAREN;RIGHT_PAREN
-            ]
-        Should.equal toks res
-
-    [<Fact>]
-    member this.``id tokens``() =
-        let x = "id*0!$*1!x'*2!x1*3!汉字*4"
-        let toks = UrljsonToken.tokenize x |> Seq.toList
-
-        //output.WriteLine(Render.stringify toks)
-        let res = [
-            ID "id";STAR;NUMBER "0";EXCLAM;
-            ID "$";STAR;NUMBER "1";EXCLAM;
-            ID "x'";STAR;NUMBER "2";EXCLAM;
-            ID "x1";STAR;NUMBER "3";EXCLAM;
-            ID "汉字";STAR;NUMBER "4"]
+        let res = [LEFT_PAREN;LEFT_PAREN;NULL;ASTERISK;TRUE;ASTERISK;FALSE;RIGHT_PAREN;ASTERISK;LEFT_PAREN;EXCLAM;RIGHT_PAREN;ASTERISK;LEFT_PAREN;KEY "$";EXCLAM;NUMBER -110.0;ASTERISK;KEY "x'";EXCLAM;STRING "";RIGHT_PAREN;RIGHT_PAREN]
         Should.equal toks res
 
     [<Fact>]
     member this.``string tokens``() =
-        let x = """~~!~~~~!~"~!~~!~~"""
+        let x = """~~*~~~~*~"~*~~*~~"""
         let toks = UrljsonToken.tokenize x |> Seq.toList
 
-        output.WriteLine(Render.stringify toks)
-        let res = [
-            STRING "~~";EXCLAM;
-            STRING "~~~~";EXCLAM;
-            STRING "~\"~";EXCLAM;
-            STRING "~~";EXCLAM;
-            STRING "~~"]
+        //output.WriteLine(Render.stringify toks)
+        let res = [STRING "";ASTERISK;STRING "~";ASTERISK;STRING "\"";ASTERISK;STRING "";ASTERISK;STRING ""]
         Should.equal toks res
 
     [<Fact>]
     member this.``number tokens``() =
-        let x = """0!0.0!+1!1E2!0.5e-3"""
+        let x = """0*0.0*+1*1E2*0.5e-3"""
         let toks = UrljsonToken.tokenize x |> Seq.toList
 
-        output.WriteLine(Render.stringify toks)
-        let res = [
-            NUMBER "0";EXCLAM;
-            NUMBER "0.0";EXCLAM;
-            NUMBER "+1";EXCLAM;
-            NUMBER "1E2";EXCLAM;
-            NUMBER "0.5e-3"
-            ]
+        //output.WriteLine(Render.stringify toks)
+        let res = [NUMBER 0.0;ASTERISK;NUMBER 0.0;ASTERISK;NUMBER 1.0;ASTERISK;NUMBER 100.0;ASTERISK;NUMBER 0.0005]
         Should.equal toks res
 
+    [<Fact>]
+    member this.``key tokens``() =
+        let x = "id!0*$!1*x'!2*x1!3*汉字!4"
+        let toks = UrljsonToken.tokenize x |> Seq.toList
+
+        //output.WriteLine(Render.stringify toks)
+        let res = [KEY "id";EXCLAM;NUMBER 0.0;ASTERISK;KEY "$";EXCLAM;NUMBER 1.0;ASTERISK;KEY "x'";EXCLAM;NUMBER 2.0;ASTERISK;KEY "x1";EXCLAM;NUMBER 3.0;ASTERISK;KEY "汉字";EXCLAM;NUMBER 4.0]
+        Should.equal toks res
 
 

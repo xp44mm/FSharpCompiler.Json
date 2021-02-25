@@ -11,7 +11,7 @@ type ObjReader =
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module ObjReader =
     /// 读取数组的元素
-    let readArrayElements (loopRead:Type -> obj -> Json) (elemType:Type) (elements:obj[]) =
+    let readArrayElements (loopRead: Type -> obj -> Json) (elemType: Type) (elements: obj[]) =
         let ls =
             elements
             |> List.ofArray
@@ -64,14 +64,6 @@ module ObjReader =
             let value = unbox<uint64> value
             Json.Number <| Convert.ToDouble value
     
-        elif ty = typeof<nativeint> then
-            let value = unbox<nativeint> value
-            Json.Number <| Convert.ToDouble(value.ToInt64())
-    
-        elif ty = typeof<unativeint> then
-            let value = unbox<unativeint> value
-            Json.Number <| Convert.ToDouble(value.ToUInt64())
-    
         elif ty = typeof<single> then
             let value = unbox<single> value
             Json.Number <| Math.Round(Convert.ToDouble value,8)
@@ -80,18 +72,27 @@ module ObjReader =
             let value = unbox<float> value
             Json.Number <| Convert.ToDouble value
     
-        elif ty = typeof<decimal> then
-            let value = unbox<decimal> value
-            Json.Number <| Convert.ToDouble value
-    
         elif ty = typeof<char> then
-            String [| unbox<char> value |]
+            unbox<char> value
+            |> Char.ToString
             |> Json.String
     
         elif ty = typeof<string> then
             unbox<string> value
             |> Json.String
 
+        elif ty = typeof<decimal> then
+            let value = unbox<decimal> value
+            Json.Number <| Convert.ToDouble value
+    
+        elif ty = typeof<nativeint> then
+            let value = unbox<nativeint> value
+            Json.Number <| Convert.ToDouble(value.ToInt64())
+    
+        elif ty = typeof<unativeint> then
+            let value = unbox<unativeint> value
+            Json.Number <| Convert.ToDouble(value.ToUInt64())
+    
         elif isNull value then
             Json.Null
         elif ty = typeof<obj> && value.GetType() <> typeof<obj> then

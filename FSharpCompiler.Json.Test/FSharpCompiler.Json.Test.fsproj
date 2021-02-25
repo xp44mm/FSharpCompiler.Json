@@ -8,16 +8,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Include="DemoTest.fs" />
 		<Compile Include="JsonTokenTest.fs" />
 		<Compile Include="JsonParsingTableTest.fs" />
 		<Compile Include="JsonParseTreeTest.fs" />
 		<Compile Include="JsonTranslationTest.fs" />
 		<Compile Include="JsonDriverTest.fs" />
 		<Compile Include="JsonRenderTest.fs" />
-		<Compile Include="DemoTest.fs" />
 		<Compile Include="FallbackReaderTest.fs" />
 		<Compile Include="FallbackSerializationTest.fs" />
 		<Compile Include="FallbackWriterTest.fs" />
+		<Compile Include="FallbackDeserializationTest.fs" />
 		<Compile Include="EnumTest.fs" />
 		<Compile Include="GuidTest.fs" />
 		<Compile Include="DateTimeOffsetConverterTest.fs" />
@@ -32,10 +33,14 @@
 		<Compile Include="SetTest.fs" />
 		<Compile Include="MapTest.fs" />
 		<Compile Include="UnionTest.fs" />
+		<Compile Include="TildeTest.fs" />
 		<Compile Include="UrlTokenTest.fs" />
 		<Compile Include="UrljsonDfaTest.fs" />
 		<Compile Include="UrljsonAnalyzerTest.fs" />
 		<Compile Include="UrljsonParsingTableTest.fs" />
+		<Compile Include="UrljsonParseTreeTest.fs" />
+		<Compile Include="UrljsonTranslationTest.fs" />
+		<Compile Include="UrljsonDriverTest.fs" />
 		<Compile Include="Program.fs" />
 	</ItemGroup>
 
@@ -44,13 +49,13 @@
 		<PackageReference Include="FSharp.xUnit" Version="1.0.0" />
 		<PackageReference Include="FSharpCompiler.Lex" Version="1.0.5" />
 		<PackageReference Include="FSharpCompiler.Yacc" Version="1.0.3" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
 		<PackageReference Include="xunit" Version="2.4.1" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="coverlet.collector" Version="3.0.2">
+		<PackageReference Include="coverlet.collector" Version="3.0.3">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

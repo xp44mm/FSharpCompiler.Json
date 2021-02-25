@@ -38,7 +38,6 @@ and translateArray = function
     values
     |> translateValues
     |> List.rev
-
 | never -> failwithf "%A"  <| never.firstLevel()
 
 and translateFields = function

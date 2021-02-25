@@ -24,3 +24,17 @@ type GuidTest(output: ITestOutputHelper) =
         //output.WriteLine(Render.stringify y)
         Should.equal y <| Guid("936da01f-9abd-4d9d-80c7-02af85c822a8")
 
+    [<Fact>]
+    member this.``serialize``() =
+        let x = Guid("936da01f-9abd-4d9d-80c7-02af85c822a8")
+        let y = ObjectConverter.serialize x
+        //output.WriteLine(Render.stringify y)
+        Should.equal y "\"936da01f-9abd-4d9d-80c7-02af85c822a8\""
+
+    [<Fact>]
+    member this.``deserialize``() =
+        let x = "\"936da01f-9abd-4d9d-80c7-02af85c822a8\""
+        let y = ObjectConverter.deserialize<Guid> x
+        //output.WriteLine(Render.stringify y)
+        Should.equal y <| Guid("936da01f-9abd-4d9d-80c7-02af85c822a8")
+

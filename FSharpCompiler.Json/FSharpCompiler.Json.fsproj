@@ -40,14 +40,16 @@
     <Compile Include="OptionConverter.fs" />
     <Compile Include="JsonModule.fs" />
     <Compile Include="ObjectConverter.fs" />
-    <None Include="urljson.lex" />
+    <Compile Include="Tilde.fs" />
     <Compile Include="UrljsonToken.fs" />
+    <None Include="urljson.lex" />
     <Compile Include="UrljsonDFA.fs" />
     <Compile Include="UrljsonAnylizer.fs" />
     <None Include="urljson.yacc" />
     <Compile Include="UrljsonParsingTable.fs" />
     <Compile Include="UrljsonTranslation.fs" />
     <Compile Include="UrljsonDriver.fs" />
+    <Compile Include="Urljson.fs" />
   </ItemGroup>
 
   <ItemGroup>
