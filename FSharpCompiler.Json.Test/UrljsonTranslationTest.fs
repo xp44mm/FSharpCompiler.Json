@@ -22,7 +22,7 @@ type UrljsonTranslationTest(output:ITestOutputHelper) =
         let y = UrljsonTranslation.translateValue x
         //show y
         Should.equal y 
-        <| Json.Object Map.empty
+        <| Json.Object []
 
     [<Fact>]
     member this.``empty array``() =
@@ -37,24 +37,21 @@ type UrljsonTranslationTest(output:ITestOutputHelper) =
         let x = Interior("value",[Terminal NULL])
         let y = UrljsonTranslation.translateValue x
         //show y
-        Should.equal y 
-        <| Json.Null
+        Should.equal y Json.Null
 
     [<Fact>]
     member this.``false``() =
         let x = Interior("value",[Terminal FALSE])
         let y = UrljsonTranslation.translateValue x
         //show y
-        Should.equal y 
-        <| Json.False
+        Should.equal y Json.False
 
     [<Fact>]
     member this.``true``() =
         let x = Interior("value",[Terminal TRUE])
         let y = UrljsonTranslation.translateValue x
         //show y
-        Should.equal y 
-        <| Json.True
+        Should.equal y Json.True
 
     [<Fact>]
     member this.``empty string``() =
@@ -77,24 +74,21 @@ type UrljsonTranslationTest(output:ITestOutputHelper) =
         let x = Interior("object",[Terminal LEFT_PAREN;Interior("fields",[Interior("fields",[Interior("field",[Terminal(KEY "a");Terminal EXCLAM;Interior("value",[Terminal(NUMBER 0.0)])])]);Terminal ASTERISK;Interior("field",[Terminal(KEY "b!");Terminal EXCLAM;Interior("value",[Terminal NULL])])]);Terminal RIGHT_PAREN])
         let y = UrljsonTranslation.translateObject x
         show y
-        Should.equal y
-        <| Map.ofList["a",Json.Number 0.0;"b!",Json.Null]
+        Should.equal y ["a",Json.Number 0.0;"b!",Json.Null]
 
     [<Fact>]
     member this.``translateFields``() =
         let x = Interior("fields",[Interior("fields",[Interior("field",[Terminal(KEY "a");Terminal EXCLAM;Interior("value",[Terminal(NUMBER 0.0)])])]);Terminal ASTERISK;Interior("field",[Terminal(KEY "b!");Terminal EXCLAM;Interior("value",[Terminal NULL])])])
         let y = UrljsonTranslation.translateFields x
         show y
-        Should.equal y 
-        <| ["b!",Json.Null;"a",Json.Number 0.0;]
+        Should.equal y ["b!",Json.Null;"a",Json.Number 0.0]
 
     [<Fact>]
     member this.``translateField``() =
         let x = Interior("field",[Terminal(KEY "a");Terminal EXCLAM;Interior("value",[Terminal(NUMBER 0.0)])])
         let y = UrljsonTranslation.translateField x
         show y
-        Should.equal y 
-        <| ("a",Json.Number 0.0)
+        Should.equal y ("a",Json.Number 0.0)
 
     [<Fact>]
     member this.``translateArray``() =

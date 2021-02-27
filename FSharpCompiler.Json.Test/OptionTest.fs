@@ -8,6 +8,33 @@ open FSharp.xUnit
 
 type OptionTest(output: ITestOutputHelper) =
     [<Fact>]
+    member this.``serialize none``() =
+        let x = None
+        let y = ObjectConverter.serialize x
+        Should.equal y "null"
+
+    [<Fact>]
+    member this.``deserialize none``() =
+        let x = "null"
+        let y = ObjectConverter.deserialize<_ option> x
+        //output.WriteLine(Render.stringify y)
+        Should.equal y None
+
+    [<Fact>]
+    member this.``serialize some``() =
+        let x = Some 1
+        let y = ObjectConverter.serialize x
+        //output.WriteLine(Render.stringify y)
+        Should.equal y "1"
+
+    [<Fact>]
+    member this.``deserialize some``() =
+        let x = "1"
+        let y = ObjectConverter.deserialize<int option> x
+        //output.WriteLine(Render.stringify y)
+        Should.equal y <| Some 1
+
+    [<Fact>]
     member this.``read none``() =
         let x = None
         let y = ObjectConverter.read<int option> x
@@ -35,32 +62,6 @@ type OptionTest(output: ITestOutputHelper) =
         //output.WriteLine(Render.stringify y)
         Should.equal y <| Some 1
 
-    [<Fact>]
-    member this.``serialize none``() =
-        let x = None
-        let y = ObjectConverter.serialize x
-        Should.equal y "null"
-
-    [<Fact>]
-    member this.``deserialize none``() =
-        let x = "null"
-        let y = ObjectConverter.deserialize<_ option> x
-        //output.WriteLine(Render.stringify y)
-        Should.equal y None
-
-    [<Fact>]
-    member this.``serialize some``() =
-        let x = Some 1
-        let y = ObjectConverter.serialize x
-        //output.WriteLine(Render.stringify y)
-        Should.equal y "1"
-
-    [<Fact>]
-    member this.``deserialize some``() =
-        let x = "1"
-        let y = ObjectConverter.deserialize<int option> x
-        //output.WriteLine(Render.stringify y)
-        Should.equal y <| Some 1
 
 
 

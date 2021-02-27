@@ -3,10 +3,6 @@
 open Xunit
 open Xunit.Abstractions
 open System
-open System.Reflection
-open System.IO
-open System.Text.RegularExpressions
-open FSharp.Literals
 open FSharp.xUnit
 
 type FallbackReaderTest(output: ITestOutputHelper) =
@@ -83,12 +79,6 @@ type FallbackReaderTest(output: ITestOutputHelper) =
         Assert.Equal(y,Json.Number 0.0)
 
     [<Fact>]
-    member this.``covert from char test``() =
-        let x = '\t'
-        let y = ObjectConverter.read x
-        Assert.Equal(y, Json.String "\t")
-
-    [<Fact>]
     member this.``covert from nullable test``() =
         let x0 = Nullable()
         let y0 = ObjectConverter.read x0
@@ -104,3 +94,14 @@ type FallbackReaderTest(output: ITestOutputHelper) =
         let res = ObjectConverter.read ls
         Should.equal res Json.Null
 
+    [<Fact>]
+    member this.``covert from char test``() =
+        let x = '\t'
+        let y = ObjectConverter.read x
+        Assert.Equal(y, Json.String "\t")
+
+    [<Fact>]
+    member this.``covert from string test``() =
+        let x = ""
+        let y = ObjectConverter.read x
+        Assert.Equal(y, Json.String "")

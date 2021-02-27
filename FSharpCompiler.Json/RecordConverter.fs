@@ -12,7 +12,7 @@ let RecordReader = {
 
             read value
             |> Array.map(fun(pi,value) -> pi.Name, loopRead pi.PropertyType value)
-            |> Map.ofArray
+            |> List.ofArray
             |> Json.Object
 
 }
@@ -22,10 +22,10 @@ let RecordWriter = {
         member this.filter(ty:Type, json:Json) = FSharpType.IsRecord ty
         member this.write(loopWrite:Type -> Json -> obj, ty:Type, json:Json) =
             match json with
-            | Json.Object jFields ->
+            | (Json.Object _) as job ->
                 let values =
                     RecordType.getRecordFields(ty)
-                    |> Array.map(fun pi -> loopWrite pi.PropertyType jFields.[pi.Name])
+                    |> Array.map(fun pi -> loopWrite pi.PropertyType job.[pi.Name])
                 FSharpValue.MakeRecord(ty,values)
             | _ -> failwith "RecordWriter.write()"
 }

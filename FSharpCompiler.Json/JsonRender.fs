@@ -5,10 +5,9 @@ open System
 
 let rec stringify (json:Json)= 
     match json with
-    | Json.Object mp ->
-        mp
-        |> Map.toArray
-        |> Array.map(fun(k,v)->
+    | Json.Object pairs ->
+        pairs
+        |> List.map(fun(k,v)->
            StringLiteral.toStringLiteral k + ":" + stringify v
         )
         |> String.concat ","

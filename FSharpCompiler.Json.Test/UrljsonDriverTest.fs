@@ -19,7 +19,7 @@ type UrljsonDriverTest(output:ITestOutputHelper) =
         let y = UrljsonDriver.parse x
         //show y
         Should.equal y 
-        <| Json.Object Map.empty
+        <| Json.Object []
 
     [<Fact>]
     member this.``empty array``() =
@@ -75,7 +75,7 @@ type UrljsonDriverTest(output:ITestOutputHelper) =
         let y = UrljsonDriver.parse x
         //show y
         Should.equal y 
-        <| Json.Object(Map.ofList["a",Json.Number 0.0])
+        <| Json.Object["a",Json.Number 0.0]
 
     [<Fact>]
     member this.``many field object``() =
@@ -83,7 +83,7 @@ type UrljsonDriverTest(output:ITestOutputHelper) =
         let y = UrljsonDriver.parse x
         //show y
         Should.equal y 
-        <| Json.Object(Map.ofList["a",Json.Number 0.0;"b",Json.Null;])
+        <| Json.Object["a",Json.Number 0.0;"b",Json.Null;]
 
     [<Fact>]
     member this.``singleton array``() =

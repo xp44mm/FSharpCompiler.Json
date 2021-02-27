@@ -4,10 +4,9 @@ open FSharpCompiler.Json
 
 let rec stringify (json:Json) = 
     match json with
-    | Json.Object mp ->
-        mp
-        |> Map.toArray
-        |> Array.map(fun (k,v) -> Tilde.toKey k + "!" + stringify v )
+    | Json.Object pairs ->
+        pairs
+        |> List.map(fun (k,v) -> Tilde.toKey k + "!" + stringify v )
         |> String.concat "*"
         |> sprintf "(%s)"
 
@@ -30,6 +29,9 @@ let serialize<'t> (value:'t) =
 
 /// convert from string instantiate value
 let deserialize<'t> (text:string) = 
-    text |> UrljsonDriver.parse |> ObjectConverter.write<'t>
+    if System.String.IsNullOrEmpty text then
+        failwith "empty string is illeagal urljson string."
+    else
+        text |> UrljsonDriver.parse |> ObjectConverter.write<'t>
 
 

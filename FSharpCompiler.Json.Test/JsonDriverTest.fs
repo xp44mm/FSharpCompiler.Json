@@ -16,15 +16,15 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``empty object``() =
         let x = "{}"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
-        <| Json.Object Map.empty
+        <| Json.Object []
 
     [<Fact>]
     member this.``empty array``() =
         let x = "[]"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.Array []
@@ -32,7 +32,7 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``null``() =
         let x = "null"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.Null
@@ -40,7 +40,7 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``false``() =
         let x = "false"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.False
@@ -48,7 +48,7 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``true``() =
         let x = "true"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.True
@@ -56,7 +56,7 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``empty string``() =
         let x = String.replicate 2 "\""
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.String ""
@@ -64,7 +64,7 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``number``() =
         let x = "0"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.Number 0.0
@@ -72,23 +72,23 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``single field object``() =
         let x = """{"a":0}"""
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
-        <| Json.Object(Map.ofList["a",Json.Number 0.0])
+        <| Json.Object["a",Json.Number 0.0]
 
     [<Fact>]
-    member this.``many field object``() =
+    member this.``many fields object``() =
         let x = """{"a":0,"b":null}"""
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
-        <| Json.Object(Map.ofList["a",Json.Number 0.0;"b",Json.Null;])
+        <| Json.Object ["a",Json.Number 0.0;"b",Json.Null;]
 
     [<Fact>]
     member this.``singleton array``() =
         let x = "[0]"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.Array [Json.Number 0.0]
@@ -96,7 +96,7 @@ type JsonDriverTest(output:ITestOutputHelper) =
     [<Fact>]
     member this.``many elements array``() =
         let x = "[0,1]"
-        let y = JsonDriver.parse x
+        let y = JsonSerializer.parse x
         //show y
         Should.equal y 
         <| Json.Array [Json.Number 0.0;Json.Number 1.0]

@@ -41,7 +41,8 @@ let value = ObjectConverter.deserialize<{|Name:string;ExpiryDate:DateTimeOffset;
 let  y = {|
             ExpiryDate=DateTimeOffset(2008,12,28,0,0,0,0,TimeSpan(0,8,0,0,0));
             Name="Apple";
-            Price=3.99;Sizes=[|"Small";"Medium";"Large"|]
+            Price=3.99;
+            Sizes=[|"Small";"Medium";"Large"|]
 |}
 
 Should.equal y value

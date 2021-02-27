@@ -4,6 +4,7 @@ open Xunit
 open Xunit.Abstractions
 open System
 open FSharp.xUnit
+open FSharp.Literals
 
 type TildeTest(output: ITestOutputHelper) =
 
@@ -40,9 +41,9 @@ type TildeTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``toLiteral Escape Characters``() =
-        let x = "\\\b\f\n\r\t\w"
+        let x = String [|'\\';'\b';'\f';'\n';'\r';'\t';'\\';'w'|]
         let y = Tilde.toLiteral x
-        Should.equal y """~\\\b\f\n\r\t\\w~"""
+        Should.equal y """~\\\b\f\n\r\t\w~"""
 
     [<Fact>]
     member this.``parseLiteral Unicode character``() =

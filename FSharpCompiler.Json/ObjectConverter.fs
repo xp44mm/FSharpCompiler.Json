@@ -41,8 +41,8 @@ let read<'t> (value:'t) = ObjReader.readObj readers typeof<'t> value
 let write<'t> (json:Json) = ObjWriter.writeObj writers typeof<'t> json :?> 't
 
 /// convert from value to string in json format
-let serialize<'t> (value:'t) = value |> read |> Json.stringify
+let serialize<'t> (value:'t) = value |> read |> JsonSerializer.stringify
 
 /// convert from string instantiate value
 let deserialize<'t> (text:string) = 
-    text |> Json.parse |> write<'t>
+    text |> JsonSerializer.parse |> write<'t>

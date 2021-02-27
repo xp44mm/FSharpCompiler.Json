@@ -1,5 +1,4 @@
-﻿[<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
-module FSharpCompiler.Json.Json
+﻿module FSharpCompiler.Json.JsonSerializer
 
 let parse(text:string) = 
     if System.String.IsNullOrEmpty text then

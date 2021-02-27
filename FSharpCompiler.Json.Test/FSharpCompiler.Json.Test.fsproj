@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<Compile Include="DemoTest.fs" />
+		<Compile Include="StringLiteralTest.fs" />
 		<Compile Include="JsonTokenTest.fs" />
 		<Compile Include="JsonParsingTableTest.fs" />
 		<Compile Include="JsonParseTreeTest.fs" />
@@ -41,11 +42,27 @@
 		<Compile Include="UrljsonParseTreeTest.fs" />
 		<Compile Include="UrljsonTranslationTest.fs" />
 		<Compile Include="UrljsonDriverTest.fs" />
+		<Compile Include="UrljsonFallbackSerializationTest.fs" />
+		<Compile Include="UrljsonFallbackDeserializationTest.fs" />
+		<Compile Include="UrljsonEnumTest.fs" />
+		<Compile Include="UrljsonGuidTest.fs" />
+		<Compile Include="UrljsonDateTimeOffsetTest.fs" />
+		<Compile Include="UrljsonTimeSpanTest.fs" />
+		<Compile Include="UrljsonDBNullTest.fs" />
+		<Compile Include="UrljsonNullableTest.fs" />
+		<Compile Include="UrljsonOptionTest.fs" />
+		<Compile Include="UrljsonRecordTest.fs" />
+		<Compile Include="UrljsonArrayTest.fs" />
+		<Compile Include="UrljsonTupleTest.fs" />
+		<Compile Include="UrljsonListTest.fs" />
+		<Compile Include="UrljsonSetTest.fs" />
+		<Compile Include="UrljsonMapTest.fs" />
+		<Compile Include="UrljsonUnionTest.fs" />
 		<Compile Include="Program.fs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FSharp.Literals" Version="2.0.9" />
+		<PackageReference Include="FSharp.Literals" Version="2.0.10" />
 		<PackageReference Include="FSharp.xUnit" Version="1.0.0" />
 		<PackageReference Include="FSharpCompiler.Lex" Version="1.0.5" />
 		<PackageReference Include="FSharpCompiler.Yacc" Version="1.0.3" />

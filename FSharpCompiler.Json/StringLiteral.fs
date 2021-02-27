@@ -1,10 +1,11 @@
-﻿module FSharpCompiler.Json.Urls.Tilde
+﻿module FSharpCompiler.Json.StringLiteral
 
 open FSharp.Idioms
 open System.Text.RegularExpressions
 open System
+open System.Globalization
 
-/// ~xyz~ -> xyz
+/// "xyz" -> xyz
 let parseLiteral (literal:string) =
     let rec loop inp =
         seq {
@@ -12,6 +13,9 @@ let parseLiteral (literal:string) =
             | "" -> ()
             | PrefixChar '\\' rest ->
                 match rest with
+                | PrefixChar '"' rest ->
+                    yield '"'
+                    yield! loop rest
                 | PrefixChar '\\' rest ->
                     yield '\\'
                     yield! loop rest
@@ -38,34 +42,29 @@ let parseLiteral (literal:string) =
                 | _ -> // 容错
                     yield '\\'
                     yield! loop rest
-
-            | Prefix "~~" (x,rest) ->
-                yield '~'
-                yield! loop rest
-
             | _ ->
                 yield inp.[0]
                 yield! loop inp.[1..]
         }
 
     System.String(
-        loop literal.[1..literal.Length-2] 
+        loop literal.[1..literal.Length-2]
         |> Array.ofSeq
     )
 
-/// xyz -> ~xyz~
+/// xyz -> "xyz"
 let toLiteral (value:string) =
-    let chars = value.ToCharArray()
     let needDouble = function
-    | 'b' | 'f' | 'n' | 'r' | 't' | 'u' | '\\' | '\b' | '\f' | '\n' | '\r' | '\t'
+    | '"' | '\\' | '\b' | '\f' | '\n' | '\r' | '\t' | 'b' | 'f' | 'n' | 'r' | 't' | 'u'
         -> true
     | c -> false // Char.IsDigit c
 
+    let chars = value.ToCharArray()
     chars
     |> Array.mapi(fun i c ->
         match c with
         | '\\' -> 
-            if i < chars.Length - 1 && needDouble chars.[i+1] then
+            if i = chars.Length - 1 || needDouble chars.[i+1] then
                 @"\\"
             else
                 @"\"
@@ -75,15 +74,9 @@ let toLiteral (value:string) =
         | '\r' -> @"\r"
         | '\t' -> @"\t"
 
-        | '~'  -> "~~"
-        | c -> c.ToString(System.Globalization.CultureInfo.InvariantCulture)
+        | '"' -> "\\\""
+        | c -> c.ToString(CultureInfo.InvariantCulture)
     )
     |> String.concat ""
-    |> fun s -> "~" + s + "~"
+    |> fun s -> "\"" + s + "\""
 
-
-let toKey (value:string) =
-    if Regex.IsMatch(value, @"^[-+]?\d+(\.\d+)?([eE][-+]?\d+)?$") || 
-       Regex.IsMatch(value, "[()*!~.+-]") then
-        toLiteral value
-    else value

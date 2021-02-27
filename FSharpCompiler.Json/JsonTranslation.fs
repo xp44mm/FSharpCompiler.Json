@@ -25,10 +25,10 @@ let rec translateValue = function
 
 and translateObject = function
 | Interior("object",[Terminal LEFT_BRACE;Terminal RIGHT_BRACE]) ->
-    Map.empty
+    []
 | Interior("object",[Terminal LEFT_BRACE;fields;Terminal RIGHT_BRACE]) ->
     translateFields fields
-    |> Map.ofList
+    |> List.rev
 | never -> failwithf "%A"  <| never.firstLevel()
 
 and translateArray = function

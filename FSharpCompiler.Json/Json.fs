@@ -1,9 +1,8 @@
 ﻿namespace FSharpCompiler.Json
 
-
 [<RequireQualifiedAccess>]
 type Json =
-| Object of Map<string,Json>
+| Object of list<string*Json>
 | Array  of Json list
 | Null
 | False
@@ -14,10 +13,13 @@ type Json =
     member t.Item with get(idx:int) =
         match t with
         | Json.Array ls -> ls.[idx]
-        | _ -> failwith "only for array"
+        | _ -> failwith "only for array."
 
     member t.Item with get(key:string) =
         match t with
-        | Json.Object mp -> mp.[key]
-        | _ -> failwith "only for object"
+        | Json.Object pairs -> 
+            match pairs |> List.tryFind(fst>>(=)key) with
+            | Some(key,json) -> json
+            | _ -> failwith "no found key."
+        | _ -> failwith "only for object."
             

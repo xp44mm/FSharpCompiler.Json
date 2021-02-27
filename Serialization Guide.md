@@ -12,40 +12,39 @@ Complex Types
 
 ```F#
 F#   Json
-Array Json.Array
-Tuple Json.Array
-List  Json.Array
-Set   Json.Array
-Map   Json.Array
-Record Json.Object
-DU     Json.Object
+Array        Json.Array
+Tuple        Json.Array
+List         Json.Array
+Set          Json.Array
+Map          Json.Array
+Record       Json.Object
+DU           Json.Object
 DBNull.Value Json.Null
-None Json.Null
+None         Json.Null
 ```
 
 Primitive Types
 
 ```F#
-Nullable() Json.Null
-null                       Json.Null
-false                      Json.False
-true                       Json.True
-System.String              Json.String
-System.Char                Json.String
-System.SByte               Json.Number
-System.Byte                Json.Number
-System.Int16               Json.Number
-System.Int32               Json.Number
-System.Int64               Json.Number
-System.IntPtr              Json.Number
-System.UInt16              Json.Number
-System.UInt32              Json.Number
-System.UInt64              Json.Number
-System.UIntPtr             Json.Number
-System.Single              Json.Number
-System.Double              Json.Number
-System.Decimal             Json.Number
-
+Nullable()     Json.Null
+null           Json.Null
+false          Json.False
+true           Json.True
+System.String  Json.String
+System.Char    Json.String
+System.SByte   Json.Number
+System.Byte    Json.Number
+System.Int16   Json.Number
+System.Int32   Json.Number
+System.Int64   Json.Number
+System.IntPtr  Json.Number
+System.UInt16  Json.Number
+System.UInt32  Json.Number
+System.UInt64  Json.Number
+System.UIntPtr Json.Number
+System.Single  Json.Number
+System.Double  Json.Number
+System.Decimal Json.Number
 ```
 
 Others

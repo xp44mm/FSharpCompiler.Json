@@ -20,9 +20,7 @@ let UnionReader = {
                 else 
                     // union case is tuple
                     ObjReader.readTupleFields loopRead fields
-
-            Map.ofList [name,unionFields]
-            |> Json.Object
+            Json.Object [name,unionFields]
 }
 
 let UnionWriter = {
@@ -31,7 +29,7 @@ let UnionWriter = {
         member this.write(loopWrite,ty,json) =
             match json with
             | Json.Object fields ->
-                let jkey, jvalue =  fields |> Map.toList |> List.exactlyOne
+                let jkey, jvalue =  fields |> List.exactlyOne
 
                 let unionCaseInfo =
                     UnionType.getUnionCases ty

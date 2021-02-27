@@ -22,7 +22,7 @@ type JsonTranslationTest(output:ITestOutputHelper) =
         let x = Interior("value",[Interior("object",[Terminal LEFT_BRACE;Terminal RIGHT_BRACE])])
         let y = JsonTranslation.translateValue x
         //show y
-        Should.equal y <| Json.Object Map.empty
+        Should.equal y <| Json.Object []
 
     [<Fact>]
     member this.``empty array``() =
@@ -71,7 +71,7 @@ type JsonTranslationTest(output:ITestOutputHelper) =
         let x = Interior("object",[Terminal LEFT_BRACE;Terminal RIGHT_BRACE])
         let y = JsonTranslation.translateObject x
         //show y
-        Should.equal y Map.empty
+        Should.equal y []
 
     [<Fact>]
     member this.``translateObject``() =
@@ -79,7 +79,7 @@ type JsonTranslationTest(output:ITestOutputHelper) =
         Terminal RIGHT_BRACE])
         let y = JsonTranslation.translateObject x
         //show y
-        Should.equal y <| Map.ofList ["a",Json.Number 0.0]
+        Should.equal y ["a",Json.Number 0.0]
 
     [<Fact>]
     member this.``translateFields single``() =

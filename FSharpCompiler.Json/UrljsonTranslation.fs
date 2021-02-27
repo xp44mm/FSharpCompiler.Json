@@ -1,9 +1,8 @@
 ﻿module FSharpCompiler.Json.Urls.UrljsonTranslation
 
+open FSharpCompiler.Parsing
 open FSharpCompiler.Json
 open FSharpCompiler.Json.Urls
-
-open FSharpCompiler.Parsing
 
 let rec translateValue = function
 | Interior("value",[Interior("object",_) as object]) ->
@@ -28,10 +27,10 @@ let rec translateValue = function
 
 and translateObject = function
 | Interior("object",[Terminal UrljsonToken.EMPTY_OBJECT]) ->
-    Map.empty
+    []
 | Interior("object",[Terminal UrljsonToken.LEFT_PAREN;fields;Terminal UrljsonToken.RIGHT_PAREN]) ->
     translateFields fields
-    |> Map.ofList
+    |> List.rev
 | never -> failwithf "%A"  <| never.firstLevel()
 
 and translateFields = function

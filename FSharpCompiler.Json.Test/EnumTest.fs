@@ -5,29 +5,24 @@ open Xunit.Abstractions
 open FSharp.xUnit
 open System.Reflection
 open System.Text.RegularExpressions
-
-type DataEntry =
-| IntegerNumber  = 0
-| FloatingNumber = 1
-| CharString     = 2
-| DateTime       = 3
+open System
 
 type EnumTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``serialize enum``() =
-        let x = DataEntry.DateTime
+        let x = DateTimeKind.Local
         let y = ObjectConverter.serialize x
-
+        
         //output.WriteLine(Render.stringify y)
-        Should.equal y "\"DateTime\""
+        Should.equal y "\"Local\""
 
     [<Fact>]
     member this.``deserialize enum``() =
-        let x = "\"DateTime\""
-        let y = ObjectConverter.deserialize<DataEntry> x
+        let x = "\"Utc\""
+        let y = ObjectConverter.deserialize<DateTimeKind> x
 
         //output.WriteLine(Render.stringify y)
-        Should.equal y DataEntry.DateTime
+        Should.equal y DateTimeKind.Utc
 
     [<Fact>]
     member this.``serialize flags``() =
@@ -63,22 +58,18 @@ type EnumTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``read enum``() =
-        let x = DataEntry.DateTime
+        let x = DateTimeKind.Local
         let y = ObjectConverter.read x
 
         //output.WriteLine(Render.stringify y)
-        Should.equal y <| Json.String "DateTime"
+        Should.equal y <| Json.String "Local"
     [<Fact>]
     member this.``enum instantiate``() =
-        let x = Json.String "DateTime"
-        let y = ObjectConverter.write<DataEntry> x
+        let x = Json.String "Local"
+        let y = ObjectConverter.write<DateTimeKind> x
 
         //output.WriteLine(Render.stringify y)
-        Should.equal y DataEntry.DateTime
-
-
-
-
+        Should.equal y DateTimeKind.Local
          
     [<Fact>]
     member this.``read flags``() =
