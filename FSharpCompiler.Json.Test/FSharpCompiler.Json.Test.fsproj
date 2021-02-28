@@ -35,7 +35,7 @@
 		<Compile Include="MapTest.fs" />
 		<Compile Include="UnionTest.fs" />
 		<Compile Include="TildeTest.fs" />
-		<Compile Include="UrlTokenTest.fs" />
+		<Compile Include="UrljsonToken.fs" />
 		<Compile Include="UrljsonDfaTest.fs" />
 		<Compile Include="UrljsonAnalyzerTest.fs" />
 		<Compile Include="UrljsonParsingTableTest.fs" />

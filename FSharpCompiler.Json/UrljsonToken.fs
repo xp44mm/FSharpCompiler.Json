@@ -8,12 +8,12 @@ type UrljsonToken =
 | ASTERISK    // COLON
 | LEFT_PAREN  // LEFT_BRACK,  LEFT_BRACE
 | RIGHT_PAREN // RIGHT_BRACK, RIGHT_BRACE
+| STRING of string
+| KEY of string // KEY          = STRING / STAR
+| NUMBER of float
 | NULL
 | FALSE
 | TRUE
-| STRING of string
-| NUMBER of float
-| KEY of string // KEY          = STRING / STAR
 | EMPTY_OBJECT  // EMPTY_OBJECT = LEFT_PAREN STAR RIGHT_PAREN
 
     member this.tag =
@@ -55,27 +55,11 @@ type UrljsonToken =
                     yield ASTERISK
                     yield! loop rest
         
-                | Prefix @"null\b" (_,rest) ->
-                    yield NULL
-                    yield! loop rest
-        
-                | Prefix @"true\b" (_,rest) ->
-                    yield TRUE
-                    yield! loop rest
-        
-                | Prefix @"false\b" (_,rest) ->
-                    yield FALSE
-                    yield! loop rest
-        
                 | Prefix "~[^~]*(?:(?:~~)[^~]*)*~(?!~)" (lexeme,rest) ->
                     yield  STRING (Tilde.parseLiteral lexeme)
                     yield! loop rest
         
-                | Prefix @"[-+]?\d+(\.\d+)?([eE][-+]?\d+)?" (lexeme,rest) ->
-                    yield NUMBER (Double.Parse lexeme)
-                    yield! loop rest
-
-                | Prefix @"[\S-[()*!~.+-]]+" (lexeme,rest) ->
+                | Prefix @"[\S-[()*!~]]+" (lexeme,rest) ->
                     yield  KEY lexeme
                     yield! loop rest
 

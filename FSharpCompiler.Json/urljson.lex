@@ -1,15 +1,9 @@
 ﻿STRING / "!"
-NULL   / "!"
-FALSE  / "!"
-TRUE   / "!"
+STRING
+KEY    / "!"
+KEY
 "(" "!" ")"
-"!"
-"*"
 "("
 ")"
-NULL
-FALSE
-TRUE
-STRING
-NUMBER
-KEY
+"!"
+"*"

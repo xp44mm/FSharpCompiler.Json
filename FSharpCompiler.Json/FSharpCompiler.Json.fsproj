@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>FSharpCompiler.Json is a easy to use and configurable JSON framework for F#.</Description>
+    <Description>FSharpCompiler.Json is a JSON serializer for F#.</Description>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <Company>34696643@qq.com</Company>
     <Authors>xp44m</Authors>
     <Copyright>xp44mm</Copyright>
     <PackageProjectUrl>https://github.com/xp44mm/FSharpCompiler.Json</PackageProjectUrl>
     <RepositoryUrl>https://github.com/xp44mm/FSharpCompiler.Json</RepositoryUrl>
-    <PackageReleaseNotes>refac</PackageReleaseNotes>
+    <PackageReleaseNotes>Urljson support number key.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.1</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
