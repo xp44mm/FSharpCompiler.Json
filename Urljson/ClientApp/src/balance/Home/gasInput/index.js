@@ -1,0 +1,1 @@
+﻿export { gasInputTable } from './gasInputTable'

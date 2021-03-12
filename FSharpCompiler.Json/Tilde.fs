@@ -30,7 +30,7 @@ let parseLiteral (literal:string) =
                 | PrefixChar 't' rest ->
                     yield '\t'
                     yield! loop rest
-                | Prefix "u[0-9a-fA-F]{4}" (x,rest) ->
+                | Prefix "u[0-9A-Fa-f]{4}" (x,rest) ->
                     let ffff = x.[1..]
                     let value = System.Convert.ToInt32(ffff,16)
                     yield System.Convert.ToChar value
@@ -59,7 +59,7 @@ let toLiteral (value:string) =
     let needDouble = function
     | 'b' | 'f' | 'n' | 'r' | 't' | 'u' | '\\' | '\b' | '\f' | '\n' | '\r' | '\t'
         -> true
-    | c -> false // Char.IsDigit c
+    | c -> false
 
     chars
     |> Array.mapi(fun i c ->
@@ -81,9 +81,8 @@ let toLiteral (value:string) =
     |> String.concat ""
     |> fun s -> "~" + s + "~"
 
-
-let toKey (value:string) =
-    if Regex.IsMatch(value, @"^[-+]?\d+(\.\d+)?([eE][-+]?\d+)?$") || 
-       Regex.IsMatch(value, "[()*!~.+-]") then
-        toLiteral value
-    else value
+let toKey (name:string) =
+    //鍵名有空白字符，标点，运算符
+    if name = "" || Regex.IsMatch(name, "[\s()*!~]") then
+        toLiteral name
+    else name

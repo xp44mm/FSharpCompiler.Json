@@ -1,0 +1,1 @@
+﻿export { gasAnalysisTable } from './gasAnalysisTable'

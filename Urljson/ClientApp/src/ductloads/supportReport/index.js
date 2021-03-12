@@ -1,0 +1,1 @@
+﻿export { supportReport } from './supportReport'

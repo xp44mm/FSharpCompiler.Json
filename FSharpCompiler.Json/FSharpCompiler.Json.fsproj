@@ -9,9 +9,9 @@
     <Copyright>xp44mm</Copyright>
     <PackageProjectUrl>https://github.com/xp44mm/FSharpCompiler.Json</PackageProjectUrl>
     <RepositoryUrl>https://github.com/xp44mm/FSharpCompiler.Json</RepositoryUrl>
-    <PackageReleaseNotes>Urljson support number key.</PackageReleaseNotes>
+    <PackageReleaseNotes>add class converter.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,6 +39,7 @@
     <Compile Include="MapConverter.fs" />
     <Compile Include="UnionConverter.fs" />
     <Compile Include="OptionConverter.fs" />
+    <Compile Include="ClassConverter.fs" />
     <Compile Include="JsonSerializer.fs" />
     <Compile Include="ObjectConverter.fs" />
     <Compile Include="Tilde.fs" />
@@ -51,11 +52,12 @@
     <Compile Include="UrljsonTranslation.fs" />
     <Compile Include="UrljsonDriver.fs" />
     <Compile Include="Urljson.fs" />
+    <Compile Include="UrlQuery.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FSharp.Idioms" Version="1.1.8" />
-    <PackageReference Include="FSharp.Literals" Version="2.0.10" />
+    <PackageReference Include="FSharp.Literals" Version="2.1.4" />
     <PackageReference Include="FSharpCompiler.Analyzing" Version="1.0.2" />
     <PackageReference Include="FSharpCompiler.Parsing" Version="1.0.3" />
   </ItemGroup>

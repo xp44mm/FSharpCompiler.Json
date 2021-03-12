@@ -1,0 +1,123 @@
+﻿{
+  "lines": [
+    {
+      "surface": {
+        "kind": "tube",
+        "tube": {
+          "shape": {
+            "kind": "rectangle",
+            "rectangle": {
+              "width": 5,
+              "height": 16
+            }
+          },
+          "length": 10
+        }
+      },
+      "remark": "脏烟道",
+      "wall": 10.8,
+      "paint": true,
+      "degree": 6,
+      "insula": true,
+      "space": 200,
+      "thick": 250,
+      "casing": true,
+      "support": 500
+    },
+    {
+      "surface": {
+        "kind": "tube",
+        "tube": {
+          "shape": {
+            "kind": "rectangle",
+            "rectangle": {
+              "width": 4,
+              "height": 16
+            }
+          },
+          "length": 30
+        }
+      },
+      "remark": "净烟道",
+      "wall": 10.8,
+      "paint": true,
+      "degree": 6,
+      "insula": true,
+      "space": 200,
+      "thick": 250,
+      "casing": true,
+      "support": 500
+    },
+    {
+      "surface": {
+        "kind": "section",
+        "section": {
+          "shape": {
+            "kind": "rectangle",
+            "rectangle": {
+              "width": 4,
+              "height": 10
+            }
+          }
+        }
+      },
+      "remark": "",
+      "wall": 10.8,
+      "paint": true,
+      "degree": 6,
+      "insula": true,
+      "space": 200,
+      "thick": 250,
+      "casing": true,
+      "support": 500
+    },
+    {
+      "surface": {
+        "kind": "tube",
+        "tube": {
+          "shape": {
+            "kind": "rectangle",
+            "rectangle": {
+              "width": 4,
+              "height": 10
+            }
+          },
+          "length": 8.2
+        }
+      },
+      "remark": "",
+      "wall": 10.8,
+      "paint": true,
+      "degree": 6,
+      "insula": true,
+      "space": 200,
+      "thick": 250,
+      "casing": true,
+      "support": 500
+    },
+    {
+      "surface": {
+        "kind": "tube",
+        "tube": {
+          "shape": {
+            "kind": "rectangle",
+            "rectangle": {
+              "width": 0.8,
+              "height": 4.4
+            }
+          },
+          "length": 20
+        }
+      },
+      "remark": "",
+      "wall": 8.4,
+      "paint": false,
+      "insula": true,
+      "space": 200,
+      "thick": 250,
+      "casing": true,
+      "support": 500
+    }
+  ],
+  "projectName": "甲醇装置"
+}

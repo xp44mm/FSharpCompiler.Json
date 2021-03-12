@@ -1,0 +1,399 @@
+﻿{
+  "spec": "辽宁沈阳烟道荷载计算",
+  "clusters": [
+    {
+      "spec": "原烟道",
+      "supports": [
+        {
+          "isFixed": false,
+          "pos": "1",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 2,
+                    "height": 2.4
+                  }
+                },
+                "wall": 12,
+                "length": 8,
+                "fullness": 0.1,
+                "inclination": 0,
+                "ashDensity": 8
+              }
+            }
+          ],
+          "slip": {
+            "direction": 90
+          }
+        },
+        {
+          "isFixed": true,
+          "pos": "2",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 2,
+                    "height": 2.4
+                  }
+                },
+                "wall": 12,
+                "length": 7,
+                "fullness": 0.1,
+                "inclination": 0,
+                "ashDensity": 8
+              }
+            },
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 2,
+                    "height": 2.4
+                  }
+                },
+                "wall": 12,
+                "length": 5,
+                "fullness": 0.1,
+                "inclination": 90,
+                "ashDensity": 8
+              }
+            },
+            {
+              "kind": "expansion",
+              "expansion": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 2,
+                    "height": 2.4
+                  }
+                },
+                "pressure": 3,
+                "inclination": 0,
+                "direction": -90
+              }
+            },
+            {
+              "kind": "expansion",
+              "expansion": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 2,
+                    "height": 2.4
+                  }
+                },
+                "pressure": 3,
+                "inclination": 0,
+                "direction": -90
+              }
+            },
+            {
+              "kind": "expansion",
+              "expansion": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.31,
+                    "height": 4.54
+                  }
+                },
+                "pressure": 3,
+                "inclination": 0,
+                "direction": 90
+              }
+            }
+          ]
+        },
+        {
+          "isFixed": false,
+          "pos": "3",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 2,
+                    "height": 2.4
+                  }
+                },
+                "wall": 12,
+                "length": 8,
+                "fullness": 0.1,
+                "inclination": 0,
+                "ashDensity": 8
+              }
+            }
+          ],
+          "slip": {
+            "direction": 90
+          }
+        },
+        {
+          "isFixed": false,
+          "pos": "4",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.31,
+                    "height": 4.54
+                  }
+                },
+                "wall": 12,
+                "length": 4,
+                "fullness": 0.1,
+                "inclination": 0,
+                "ashDensity": 8
+              }
+            },
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 2,
+                    "height": 4.54
+                  }
+                },
+                "wall": 12,
+                "length": 5.5,
+                "fullness": 0.1,
+                "inclination": 90,
+                "ashDensity": 8
+              }
+            }
+          ],
+          "slip": {
+            "direction": -90
+          }
+        }
+      ]
+    },
+    {
+      "spec": "分組",
+      "supports": [
+        {
+          "isFixed": false,
+          "pos": "5",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "wall": 12,
+                "length": 2,
+                "fullness": 0.1,
+                "inclination": 0,
+                "ashDensity": 8
+              }
+            }
+          ],
+          "slip": {
+            "direction": 90
+          }
+        },
+        {
+          "isFixed": true,
+          "pos": "6",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "wall": 12,
+                "length": 1.7,
+                "fullness": 0.1,
+                "inclination": 0,
+                "ashDensity": 8
+              }
+            },
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "wall": 12,
+                "length": 1,
+                "fullness": 0.1,
+                "inclination": 90,
+                "ashDensity": 8
+              }
+            },
+            {
+              "kind": "expansion",
+              "expansion": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "pressure": 2,
+                "inclination": 0,
+                "direction": -90
+              }
+            }
+          ]
+        },
+        {
+          "isFixed": false,
+          "pos": "7",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "wall": 12,
+                "length": 8,
+                "fullness": 0.1,
+                "inclination": 90,
+                "ashDensity": 8
+              }
+            }
+          ],
+          "slip": {
+            "direction": -90
+          }
+        }
+      ]
+    },
+    {
+      "spec": "分組",
+      "supports": [
+        {
+          "isFixed": true,
+          "pos": "8",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "wall": 12,
+                "length": 14,
+                "fullness": 0.1,
+                "inclination": 90,
+                "ashDensity": 8
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "分組",
+      "supports": [
+        {
+          "isFixed": false,
+          "pos": "9",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "wall": 12,
+                "length": 3.7,
+                "fullness": 0.1,
+                "inclination": 90,
+                "ashDensity": 8
+              }
+            }
+          ],
+          "slip": {
+            "direction": 0
+          }
+        },
+        {
+          "isFixed": true,
+          "pos": "10",
+          "loads": [
+            {
+              "kind": "duct",
+              "duct": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "wall": 12,
+                "length": 3.8,
+                "fullness": 0.1,
+                "inclination": 0,
+                "ashDensity": 8
+              }
+            },
+            {
+              "kind": "expansion",
+              "expansion": {
+                "section": {
+                  "kind": "rectangle",
+                  "rectangle": {
+                    "width": 1.6,
+                    "height": 3.7
+                  }
+                },
+                "pressure": 2,
+                "inclination": 0,
+                "direction": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

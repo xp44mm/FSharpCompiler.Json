@@ -5,6 +5,32 @@ open System.Text.RegularExpressions
 open System
 open System.Globalization
 
+/// unprintable control codes -> utf-16 | else -> directly map
+let toUtf16 (c:Char) =
+    match int c with 
+    | charCode when charCode < 16 ->
+        "\\u000" + Convert.ToString(charCode,16)
+    | charCode when charCode < 32 ->
+        "\\u00" + Convert.ToString(charCode,16)
+    | _ -> c.ToString(CultureInfo.InvariantCulture)
+
+/// xyz -> "xyz"
+let toLiteral (value:string) =
+    value.ToCharArray()
+    |> Array.mapi(fun i c ->
+        match c with
+        | '\\' -> @"\\" // 並不會智能省略轉義符合
+        | '"' -> "\\\""
+        | '\b' -> @"\b"
+        | '\f' -> @"\f"
+        | '\n' -> @"\n"
+        | '\r' -> @"\r"
+        | '\t' -> @"\t"
+        | c -> toUtf16 c
+    )
+    |> String.concat ""
+    |> sprintf "\"%s\""
+
 /// "xyz" -> xyz
 let parseLiteral (literal:string) =
     let rec loop inp =
@@ -34,15 +60,15 @@ let parseLiteral (literal:string) =
                 | PrefixChar 't' rest ->
                     yield '\t'
                     yield! loop rest
-                | Prefix "u[0-9a-fA-F]{4}" (x,rest) ->
+                | Prefix "u[0-9A-Fa-f]{4}" (x,rest) ->
                     let ffff = x.[1..]
                     let value = System.Convert.ToInt32(ffff,16)
                     yield System.Convert.ToChar value
                     yield! loop rest
-                | _ -> // 容错
+                | rest -> // 落单的后斜杠容错
                     yield '\\'
                     yield! loop rest
-            | _ ->
+            | inp ->
                 yield inp.[0]
                 yield! loop inp.[1..]
         }
@@ -51,32 +77,4 @@ let parseLiteral (literal:string) =
         loop literal.[1..literal.Length-2]
         |> Array.ofSeq
     )
-
-/// xyz -> "xyz"
-let toLiteral (value:string) =
-    let needDouble = function
-    | '"' | '\\' | '\b' | '\f' | '\n' | '\r' | '\t' | 'b' | 'f' | 'n' | 'r' | 't' | 'u'
-        -> true
-    | c -> false // Char.IsDigit c
-
-    let chars = value.ToCharArray()
-    chars
-    |> Array.mapi(fun i c ->
-        match c with
-        | '\\' -> 
-            if i = chars.Length - 1 || needDouble chars.[i+1] then
-                @"\\"
-            else
-                @"\"
-        | '\b' -> @"\b"
-        | '\f' -> @"\f"
-        | '\n' -> @"\n"
-        | '\r' -> @"\r"
-        | '\t' -> @"\t"
-
-        | '"' -> "\\\""
-        | c -> c.ToString(CultureInfo.InvariantCulture)
-    )
-    |> String.concat ""
-    |> fun s -> "\"" + s + "\""
 

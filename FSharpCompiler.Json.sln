@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCompiler.Json", "FSharpCompiler.Json\FSharpCompiler.Json.fsproj", "{F54F7F78-21E7-40E9-B27C-548300DB787E}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharpCompiler.Json", "FSharpCompiler.Json\FSharpCompiler.Json.fsproj", "{F54F7F78-21E7-40E9-B27C-548300DB787E}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCompiler.Json.Test", "FSharpCompiler.Json.Test\FSharpCompiler.Json.Test.fsproj", "{341B2379-B27F-481A-A92B-FD579D81B007}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharpCompiler.Json.Test", "FSharpCompiler.Json.Test\FSharpCompiler.Json.Test.fsproj", "{341B2379-B27F-481A-A92B-FD579D81B007}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Urljson", "Urljson\Urljson.csproj", "{279F48CB-4E0C-4E85-9C63-0A7F10CDADAC}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Urljson.Controllers", "Urljson.Controllers\Urljson.Controllers.fsproj", "{ADC63B3F-3146-46E0-BB75-F7048FC74153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{341B2379-B27F-481A-A92B-FD579D81B007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{341B2379-B27F-481A-A92B-FD579D81B007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{341B2379-B27F-481A-A92B-FD579D81B007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{279F48CB-4E0C-4E85-9C63-0A7F10CDADAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{279F48CB-4E0C-4E85-9C63-0A7F10CDADAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{279F48CB-4E0C-4E85-9C63-0A7F10CDADAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{279F48CB-4E0C-4E85-9C63-0A7F10CDADAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC63B3F-3146-46E0-BB75-F7048FC74153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC63B3F-3146-46E0-BB75-F7048FC74153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC63B3F-3146-46E0-BB75-F7048FC74153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC63B3F-3146-46E0-BB75-F7048FC74153}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

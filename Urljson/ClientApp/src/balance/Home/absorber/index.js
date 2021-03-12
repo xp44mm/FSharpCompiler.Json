@@ -1,0 +1,1 @@
+﻿export { absorberTable } from './absorberTable'

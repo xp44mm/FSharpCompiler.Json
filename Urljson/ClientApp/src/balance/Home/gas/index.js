@@ -1,0 +1,1 @@
+﻿export { gasTable } from './gasTable'

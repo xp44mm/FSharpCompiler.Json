@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<Compile Include="DemoTest.fs" />
+		<Compile Include="FSharpEscapeSequenceTest.fs" />
 		<Compile Include="StringLiteralTest.fs" />
 		<Compile Include="JsonTokenTest.fs" />
 		<Compile Include="JsonParsingTableTest.fs" />
@@ -34,6 +35,7 @@
 		<Compile Include="SetTest.fs" />
 		<Compile Include="MapTest.fs" />
 		<Compile Include="UnionTest.fs" />
+		<Compile Include="ClassTest.fs" />
 		<Compile Include="TildeTest.fs" />
 		<Compile Include="UrljsonToken.fs" />
 		<Compile Include="UrljsonDfaTest.fs" />
@@ -62,7 +64,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FSharp.Literals" Version="2.0.10" />
+		<PackageReference Include="FSharp.Literals" Version="2.1.4" />
 		<PackageReference Include="FSharp.xUnit" Version="1.0.0" />
 		<PackageReference Include="FSharpCompiler.Lex" Version="1.0.5" />
 		<PackageReference Include="FSharpCompiler.Yacc" Version="1.0.3" />

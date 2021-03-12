@@ -1,0 +1,1 @@
+﻿export { supportsTable } from './supportsTable'

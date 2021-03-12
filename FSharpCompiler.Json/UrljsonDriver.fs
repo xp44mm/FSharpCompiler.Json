@@ -13,7 +13,10 @@ let parseTokens (tokens:seq<UrljsonToken>) =
     UrljsonTranslation.translateValue parsingTree
 
 let parse(text:string) =
-    let tokens = 
-        UrljsonToken.tokenize text
-        |> UrljsonAnylizer.normalize
-    parseTokens tokens
+    if System.String.IsNullOrEmpty(text) then
+        failwith "text is empty."
+    else
+        let tokens = 
+            UrljsonToken.tokenize text
+            |> UrljsonAnylizer.normalize
+        parseTokens tokens

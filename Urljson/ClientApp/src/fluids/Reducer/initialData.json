@@ -1,0 +1,17 @@
+{
+	"sinlet": {
+		"kind": "rectangle",
+		"rectangle": {
+			"width": 5,
+			"height": 10
+		}
+	},
+	"soutlet": {
+		"kind": "rectangle",
+		"rectangle": {
+			"width": 15,
+			"height": 20
+		}
+	},
+	"angle": 25
+}

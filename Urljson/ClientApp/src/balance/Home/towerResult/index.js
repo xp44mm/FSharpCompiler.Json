@@ -1,0 +1,1 @@
+﻿export { towerResultTable } from './towerResultTable'

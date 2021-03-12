@@ -75,7 +75,7 @@ type JsonToken =
                     yield FALSE
                     yield! loop rest
         
-                | Prefix """(?:"(\\[/'"bfnrt\\]|\\u[0-9a-fA-F]{4}|[^\\"])*")""" (lexeme,rest) ->
+                | Prefix """(?:"(\\[/'"bfnrt\\]|\\u[0-9A-Fa-f]{4}|[^\\"])*")""" (lexeme,rest) ->
                     yield  STRING(StringLiteral.parseLiteral lexeme)
                     yield! loop rest
 

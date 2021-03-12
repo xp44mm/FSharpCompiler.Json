@@ -1,0 +1,1 @@
+﻿export { basicTable } from './basicTable'

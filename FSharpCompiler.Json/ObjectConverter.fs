@@ -15,6 +15,7 @@ let readers = [
     SetConverter.SetReader
     MapConverter.MapReader
     UnionConverter.UnionReader
+    ClassConverter.ClassReader
     ]
 
 let writers = [
@@ -32,6 +33,7 @@ let writers = [
     SetConverter.SetWriter
     MapConverter.MapWriter
     UnionConverter.UnionWriter
+    ClassConverter.ClassWriter
 ]
 
 /// convert from value to json

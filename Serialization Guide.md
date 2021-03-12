@@ -1,6 +1,8 @@
 # Serialization Guide
 
-The `FSharpCompiler.Json` can serialize a wide variety of F# objects. This guide looks at how it works, first at a high level and then in more detail.
+The `FSharpCompiler.Json` can serialize a wide variety of F# objects. This guide looks at how it works, first at a high level and then in more detail. 
+
+> `FSharpCompiler.Json` 默认的转化器执行来源和目标的完全匹配映射。不会自动过滤来源成员中的非法数据，也不会自动匹配字段中不同命名规则的名称。如果你想实现这些功能，可以自己编写转化器放在转化器集合的开始，以优先匹配。
 
 ## Summary
 
@@ -26,12 +28,14 @@ None         Json.Null
 Primitive Types
 
 ```F#
-Nullable()     Json.Null
 null           Json.Null
+Nullable()     Json.Null
 false          Json.False
 true           Json.True
+
 System.String  Json.String
 System.Char    Json.String
+
 System.SByte   Json.Number
 System.Byte    Json.Number
 System.Int16   Json.Number

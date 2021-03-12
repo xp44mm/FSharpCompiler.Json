@@ -100,7 +100,7 @@ module ObjReader =
         else
             Json.String (Render.stringify value)
 
-    /// read from obj to json
+    /// dynamic read from obj to json
     let rec readObj (readers:#seq<ObjReader>) (ty:Type) (value:obj) =
         let read =
             readers

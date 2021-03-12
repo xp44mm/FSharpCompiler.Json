@@ -1,0 +1,10 @@
+{
+	"p0": 92.17,
+	"pin": 0,
+	"efficiency": 85,
+	"bmcr": {
+		"pressure": 2,
+		"temperature": 120,
+		"stdflow": 328
+	}
+}

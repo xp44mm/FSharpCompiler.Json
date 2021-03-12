@@ -1,0 +1,6 @@
+﻿import { boosterfan } from './boosterfan'
+import { fan } from './fan'
+import { gypsumHouse } from './gypsumHouse'
+import { pump } from './pump'
+import { rootsfan } from './rootsfan'
+import { tank } from './tank'

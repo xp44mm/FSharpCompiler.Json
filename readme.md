@@ -8,7 +8,7 @@
 
 - High performance, faster than .NET's built-in JSON serializers.
 
-## Getting FSharpCompiler.Json over NuGet
+## Getting `FSharpCompiler.Json` over NuGet
 
 The simplest way of integrating `FSharpCompiler.Json` to your project is by using NuGet. You can install it by opening the package manager console (PM) and typing in the following statement:
 
@@ -16,9 +16,13 @@ The simplest way of integrating `FSharpCompiler.Json` to your project is by usin
 Install-Package FSharpCompiler.Json
 ```
 
-You can also use the graphical library package manager ("Manage NuGet Packages for Solution"). Searching for "FSharpCompiler.Json" in the official NuGet online feed will find this library.
+You can also use the graphical library package manager ("Manage NuGet Packages for Solution"). Searching for name of this package in the official NuGet online feed will find this library.
 
 ## Get Started
+
+JSON字符串字面量中不能包括如下字符：`\a`，`\b`，`\v`。
+
+JSON字符串字面量对如下字符使用字符本身，而不是转义：`'`，`/`。
 
 see also:
 

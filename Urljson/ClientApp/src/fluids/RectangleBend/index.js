@@ -1,0 +1,1 @@
+﻿export { rectangleBend } from './rectangleBend'

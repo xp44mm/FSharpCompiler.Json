@@ -1,0 +1,2 @@
+﻿export { frictionalResistance } from './frictionalResistance'
+

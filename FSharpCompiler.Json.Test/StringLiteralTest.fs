@@ -8,6 +8,8 @@ open FSharp.Literals
 
 type StringLiteralTest(output: ITestOutputHelper) =
 
+
+
     [<Fact>]
     member this.``parseLiteral empty``() =
         let x = "\"\""
@@ -43,7 +45,7 @@ type StringLiteralTest(output: ITestOutputHelper) =
     member this.``toLiteral Escape Characters``() =
         let x = String [|'"';'\\';'\b';'\f';'\n';'\r';'\t';'\\';'w';'\\'|]
         let y = StringLiteral.toLiteral x
-        Should.equal y <| """ "\"\\\b\f\n\r\t\w\\" """.Trim()
+        Should.equal y <| """ "\"\\\b\f\n\r\t\\w\\" """.Trim()
 
     [<Fact>]
     member this.``parseLiteral Unicode character``() =
