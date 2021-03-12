@@ -153,7 +153,7 @@ type Input =
     {
         sinlet:Shape
         soutlet:Shape
-        angle: float
+        angle:float
     }
 ```
 

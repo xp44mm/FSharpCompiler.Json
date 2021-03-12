@@ -42,6 +42,7 @@
     <Compile Include="ClassConverter.fs" />
     <Compile Include="JsonSerializer.fs" />
     <Compile Include="ObjectConverter.fs" />
+    <Compile Include="Apostrophe.fs" />
     <Compile Include="Tilde.fs" />
     <Compile Include="UrljsonToken.fs" />
     <None Include="urljson.lex" />
